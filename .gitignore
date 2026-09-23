@@ -1,0 +1,26 @@
+# Secrets - never commit these
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel/
+
+# Logs and OS files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Added by `vercel link` (keeps the local Vercel token file out of git)
+.env*
+!.env.example

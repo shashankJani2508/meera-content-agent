@@ -1,0 +1,1432 @@
+MEERA PILLAI: FORENSIC VOICE & WRITING-STYLE MODEL
+==================================================
+
+Method note. I read all 15 pieces closely. I also ran a text analysis on the PDF to get real figures for sentence length, pronouns, punctuation and word frequency instead of estimating them. Subject lines, "Hi," and the "Meera" sign-off were stripped before counting. Paragraph-level observations come from reading, because the PDF extraction doesn't preserve paragraph breaks reliably.
+
+
+==================================================
+PART 1: CORPUS MAP
+==================================================
+
+|                 | LinkedIn (4) | Newsletters (11) | Total   |
+|-----------------|--------------|------------------|---------|
+| Body words      | 1,830        | 4,849            | 6,679   |
+| Length range    | 423-533      | 342-542          | 342-542 |
+| Sentences       | 113          | 278              | 391     |
+
+Categories:
+- Ingredient deep-dive: LI-001, NL-004, NL-010
+- Formulation science: NL-002, NL-003, NL-007
+- Industry transparency: LI-004, NL-008, NL-009
+- Brand philosophy: NL-001, NL-005
+- Founder story: LI-002, NL-011
+- India-specific: LI-003
+- Consumer education: NL-006
+
+Audiences. The primary audience is skincare buyers who want more than marketing copy. Secondary audiences are founders and brand-builders (LI-003 addresses them directly) and industry peers (LI-002, LI-004).
+
+Purposes. She audits claims, explains mechanisms, justifies company decisions, discloses company practice, and reports on the company's performance and mistakes.
+
+Important limitation. Every piece is about skincare. That makes separating topic from voice an inference rather than something the corpus proves. Part 3 handles this explicitly.
+
+
+==================================================
+PART 2: SAMPLE-BY-SAMPLE ANALYSIS
+==================================================
+
+--- LI-001 · Niacinamide label percentages · 533 words · Emotional temp 3/10 ---
+
+Purpose. Show that a headline concentration is meaningless without pH, delivery base and batch consistency, and teach readers what documentation to demand.
+
+Opening. Sentence 1 is second-person and concrete ("the serum you're using"), with a hedge ("probably"). Sentence 2 is the thesis, with calibrated certainty ("almost certainly meaningless"). Sentence 3 gives her motive and lists her own company among those who misunderstood. Topic, claim and motive are all in place within about 60 words.
+
+Argument structure. She announces three factors, then walks through them with ordinal openers ("The second thing...", "The third thing...") rather than bullets. After the three factors come a boundary paragraph, a company-practice paragraph and a reader action.
+
+Evidence.
+- Mechanism thresholds (conversion below pH 4).
+- An illustrative scenario (pH 3.5).
+- A first-party anecdote: months of base adjustment while the label percentage stayed unchanged.
+- Explicit affirmation that the ingredient's evidence is "solid and replicable."
+
+Tone. Dry and exact, with one deadpan triplet about legality versus helpfulness.
+
+Sentence style. Mean 16.2 words. Long mechanism sentences resolve into verdicts of 3-6 words ("Niacin is not inert.").
+
+Personal voice.
+- "I" carries motive and position.
+- "We" carries operations and early mistakes.
+- "You" addresses the reader as a buyer.
+
+Ending. An imperative to ask for documentation, immediately de-commercialised ("Not from us specifically"). The final beat is a conditional: a brand's missing answer is itself informative.
+
+Distinctive patterns. A paired "not unusual / also not standard practice" construction. Self-inclusion in the list of people who got it wrong.
+
+Thought movement. label number -> hidden variables -> mechanism x3 -> own experience -> boundary (ingredient works, label insufficient) -> own practice with cost -> reader action
+
+
+--- LI-002 · The stability-review meeting · 423 words · Temp 4/10 ---
+
+Purpose. Explain the founding rationale without mythologising it.
+
+Opening. A dated scene (year, meeting type, unnamed employer). She turns technical within two sentences (8% active, 24-month claim).
+
+Argument structure.
+1. Her question, reported indirectly, and a one-number answer (pH 3.2).
+2. The mechanism that makes the number alarming.
+3. Three clipped outcome sentences: nobody asked, it passed, she left seven months later. The causation is implied, never stated.
+4. An explicit "what I'm not saying" that protects colleagues and reframes the problem as systemic.
+5. Graded causes: Some / Some / Most.
+6. The founding thought.
+7. What that thought costs three years later.
+8. A deflationary close.
+
+Evidence. Technical specifics (the 3.8 threshold, 8-10-month loss, an inherited test protocol). Operational consequences (more CoA requests, a costlier protocol).
+
+Tone. The only emotion word is "discomfort," narrowed with "specific." Emotion is carried by the silence of the short sentences.
+
+Sentence style. Joint-highest share of short sentences in the corpus (9 of 26 are 8 words or fewer). Uses anaphora.
+
+Personal voice. Nobody is named. No quoted dialogue.
+
+Ending. Three flat sentences that call the story uninspiring and reduce it to a gap and a decision.
+
+Distinctive patterns. Anti-inspiration ending. The vision is defined operationally, as documentation and cost.
+
+Thought movement. scene -> question -> technical explanation -> outcome -> boundary (people vs system) -> generalisation -> decision -> present-day cost -> deflation
+
+
+--- LI-003 · Humidity and returns · 448 words · Temp 3/10 ---
+
+Purpose. Use the company's own failure to expose an industry blind spot: product bases calibrated for a foreign climate.
+
+Opening. Her own data with an exact window (12 months to June 2025, 23%). Then the investigative step ("When I mapped..."), the pattern (71%), and a fragment listing the cities.
+
+Argument structure.
+1. A one-sentence admission paragraph.
+2. Widening to industry practice.
+3. A concession (the actives science translates) followed by a "But" pivot (the vehicle doesn't).
+4. A contrasting place-and-month example.
+5. The failure mechanism.
+6. A triad turning on the repeated word "designed."
+7. The fix and its result (8%, actives unchanged).
+8. A motive disclaimer plus self-criticism.
+9. Why the industry misses the problem.
+10. Advice for founders.
+
+Evidence. Data works in three roles here: trigger, then pattern, then verification. Mechanism detail (film traps sweat within 20 minutes).
+
+Tone. Matter-of-fact about the company's own error.
+
+Sentence style. Mean 17.2. The cities appear as a verbless fragment.
+
+Personal voice. "I" for the analysis ("I mapped"). "We" for the mistake and the fix. Ownership is plural and in the active voice.
+
+Ending. A founder-facing conditional test ("If the answer is anything other than...").
+
+Distinctive patterns. "I bring this up not because... I bring it up because...". She volunteers that the data is not proprietary.
+
+
+--- LI-004 · "Clinically tested" · 426 words · Temp 3/10 ---
+
+Purpose. Show that an unregulated claim covers wildly different evidence, and give readers a method for interrogating it.
+
+Opening. A dated trade-fair scene. The banner is quoted in capitals, followed by a deadpan short sentence naming the product.
+
+Argument structure.
+1. Anecdote: the representative never replied, and Meera reads this charitably.
+2. The claim's regulatory status.
+3. An inline catalogue of four observed meanings, escalating to "no documentation."
+4. Anaphoric verdicts: None / None / All.
+5. A careful boundary: not all claims are fabricated (Some / Some).
+6. An extreme-range contrast (500-person double-blind study vs 12 self-raters).
+7. Four specific questions to ask in writing.
+8. Company disclosure, including its weakness.
+
+Evidence. Personal observation. Numbers illustrate the range of what the claim can mean; they aren't used as proof.
+
+Tone. Dry humour sits inside the charitable reading of the representative.
+
+Sentence style. Contains the corpus's longest sentence (63 words, the catalogue) next to 2-word fragments.
+
+Personal voice. "I've seen" is the evidence source. "We" is used for disclosure.
+
+Ending. "Not the most flattering version... early stage," followed by an "I'd rather X than Y" preference.
+
+Distinctive patterns. Non-response treated as evidence. Individuals separated from the system.
+
+
+--- NL-001 · What you're signed up for · 342 words · Temp 4/10 ---
+
+Purpose. Set a contract with readers and define the limits of her credibility.
+
+Opening. "I want to start with something direct:", a colon, then the promise not to sell.
+
+Argument structure. What the list will and won't be -> a brief bio with negative credentials first (not a dermatologist, no medical degree), then a scoped positive credential -> the founding motive, expressed through stacked conditions -> a triad of promises ("When I don't know..., I'll say so") -> thanks to two groups of readers.
+
+Evidence. None external. Credibility comes from limiting her own claims.
+
+Tone. The warmest opening and closing in the corpus.
+
+Sentence style. Lowest mean in the corpus (14.2).
+
+Personal voice. High "I" density (18 in 342 words).
+
+Ending. Double thanks and a hedged promise ("I'll try").
+
+Distinctive patterns. A negate-then-reassert pair about "basic questions." Credential deflation.
+
+
+--- NL-002 · What an active actually does · 475 words · Temp 2/10 ---
+
+Purpose. Move readers from evaluating ingredients to evaluating formulations.
+
+Opening. "I want to talk about... because," followed by a critique: most explanations stop one step short.
+
+Argument structure.
+1. Quotes the standard explanation.
+2. Concedes it is true.
+3. Limits its usefulness ("It is also...").
+4. States three necessary conditions in one stacked sentence.
+5. Walks through them with the signposts "Take penetration." / "Then there's concentration." / "Finally, stability."
+6. Boundary: she's not trying to make readers distrust everything.
+7. Contrasts vague label copy with specific label copy.
+8. Disclosure and a pointer to the next email.
+
+Evidence. Concentration thresholds (2%, 4-5%, 10%, 0.1%). A domestic scenario (an open bottle near a window in a Mumbai summer).
+
+Tone. Pure teaching register.
+
+Sentence style. Corrects a metaphor instead of inventing one: the base "isn't decoration."
+
+Personal voice. Very little "I."
+
+Ending. A disclosure rationale ("because it exists and because I think you should have it"), then a one-line series continuation.
+
+Distinctive patterns. The "true but useless" concession. A necessary-conditions framework.
+
+
+--- NL-003 · pH · 426 words · Temp 3/10 ---
+
+Purpose. Explain why pH governs compatibility and why brands should publish it.
+
+Opening. A customer anecdote: unnamed, "last month." Her question is quoted and praised as "specific and good."
+
+Argument structure.
+1. An honest "it depends," naming the dependency and why she can't fully answer.
+2. Names the problem, with one justified emotion ("frustrating... because it's entirely solvable").
+3. "Here's why it matters."
+4. pH windows for each active.
+5. The layering mechanism.
+6. Standard advice judged "not wrong but incomplete."
+7. "Here's what I want you to take from this."
+8. Her own product's pH and a concrete application sequence.
+9. A test for brands.
+
+Evidence. Reference ranges. Her own batch-documented pH.
+
+Tone. Frustration is named once, with a reason attached.
+
+Sentence style. Signpost sentences act as mini-headers.
+
+Personal voice. Highest "you" count in the corpus (11). Advisory.
+
+Ending. A non-answer test.
+
+Distinctive patterns. "It depends" is immediately turned into a usable recommendation.
+
+
+--- NL-004 · Vitamin C · 542 words · Temp 4/10 ---
+
+Purpose. Untangle the forms of Vitamin C and explain why she hasn't launched one.
+
+Opening. A confession of delay, a two-sided critique of existing explanations, and a modest promise ("I'll try to do neither").
+
+Argument structure.
+1. "Start here:" and a reframe (Vitamin C is not one ingredient).
+2. An inline catalogue of derivatives.
+3. The strongest evidence belongs to the least stable form.
+4. A practical colour diagnostic.
+5. First-party testing: three simultaneous requirements, and a loss within 4-6 months, interpreted as "a meaningful finding, because...".
+6. The trade-off with alternatives, plus "That doesn't mean... It means...".
+7. An honesty flag and an admission: no product after 14 months.
+8. A reframe: this is about the ingredient's difficulty, not the company's inadequacy.
+9. A conditional future commitment.
+
+Evidence. Own testing. Comparisons of evidence tiers ("thinner," "isn't as strong").
+
+Tone. Candid about being stuck.
+
+Sentence style. Mean 20.8. Contains a signature stacked-constraint sentence (packaging, price, humid-climate base).
+
+Personal voice. "I" for effort. "We" for testing.
+
+Ending. "When we get it right...".
+
+Distinctive patterns. Exposes marketing that sells one derivative using another derivative's evidence.
+
+
+--- NL-005 · Why no fragrance · 425 words · Temp 3/10 ---
+
+Purpose. Justify a company policy with evidence while treating the opposing case as legitimate.
+
+Opening. Bottom line first: "The shortest version of this email:", two reasons and the decision. Then the fragment "The longer version."
+
+Argument structure.
+1. How fragrance disclosure works.
+2. A scoped claim: the 26 listed allergens are not the only problematic ones.
+3. Sensitisation mechanism explained over time.
+4. A quantified boundary: 1-3%, "not a majority... also not trivial."
+5. A steelman: "real and legitimate commercial considerations."
+6. The decision framed as her own choice.
+7. The scope of the commitment.
+
+Evidence. The EU regulatory list. A population estimate. Mechanism.
+
+Tone. Measured.
+
+Sentence style. Where evidence is firm, a flat sentence with no hedge ("The sensitisation is permanent.").
+
+Personal voice. The decision is "I," not "we."
+
+Ending. What the commitment covers and who it matters for.
+
+Distinctive patterns. Proportionality statements. Decisions presented as choices rather than universal verdicts.
+
+
+--- NL-006 · SPF application · 400 words · Temp 4/10 ---
+
+Purpose. Change behaviour by explaining mechanism.
+
+Opening. A flat claim, an admission that it isn't new, and a statement of her teaching theory: mechanism changes behaviour more than repetition does.
+
+Argument structure.
+1. The test condition (2mg/cm2).
+2. A named study (2022, Liverpool).
+3. The consequence (SPF 30 performing like SPF 5-6).
+4. "This is not a rounding issue."
+5. Second issue: SPF in moisturiser, introduced with "my position is simple:".
+6. Filter distribution.
+7. "What this means practically:" followed by steps.
+8. A commercial disclaimer.
+
+Evidence. A cited study and the consequence derived from it.
+
+Tone. The most insistent piece.
+
+Sentence style. Median 10 words.
+
+Personal voice. "I get questions about this regularly" as the reason for writing. "Our UV index levels" uses India as a collective "our."
+
+Ending. A non-commercial disclosure ("not a setup for a product launch").
+
+Distinctive patterns. States her belief that mechanism beats instruction.
+
+
+--- NL-007 · Ceramides and the barrier · 431 words · Temp 2/10 ---
+
+Purpose. Define "barrier repair" precisely and set realistic expectations.
+
+Opening. Names an overused phrase and the vague understanding around it. "I want to fix that."
+
+Argument structure.
+1. The technical term, and a correction of the popular metaphor ("not really a wall... more accurately...").
+2. Lipid composition figures.
+3. How disruption happens, with an inline gloss of transepidermal water loss.
+4. "The key word is 'can.'"
+5. Three conditions.
+6. A heuristic: listed after the preservatives means trace amounts.
+7. Company approach and restraint: no barrier claims yet.
+8. The practical implication.
+
+Evidence. Lipid ratio. Research consistency for specific ceramide types.
+
+Tone. Clinical.
+
+Sentence style. Highest mean in the corpus (21.6). Glosses are set off with dashes.
+
+Personal voice. "We" for approach. Almost no "I."
+
+Ending. "The practical implication:", then a short imperative.
+
+Distinctive patterns. Puts a hedge word under the spotlight as the crux of the argument. Treats restraint in claims as credibility.
+
+
+--- NL-008 · "Natural" · 459 words · Temp 3/10 ---
+
+Purpose. Show that "natural" carries marketing meaning but no information about the formulation.
+
+Opening. A recurring experience ("probably fifteen times over the last two years") rather than one scene.
+
+Argument structure.
+1. Regulatory status ("not a loophole - it's the current state").
+2. What processing actually does in the lab.
+3. A documented mismatch (cold-pressed labels vs temperature logs), with a refusal to assign motive.
+4. More examples (squalane sources, centella forms).
+5. Rejects the natural/synthetic binary (Some / Some).
+6. "What I'm saying is...".
+7. Reader action.
+
+Evidence. First-hand documentation mismatches and examples.
+
+Tone. Even.
+
+Sentence style. Most quotation marks of any piece (7). Marketing terms are held at arm's length.
+
+Personal voice. "I've encountered"; "what I'd call."
+
+Ending. Brands that can answer have been asking the right questions.
+
+Distinctive patterns. "Whether that was X or something else, the documentation didn't match."
+
+
+--- NL-009 · Clean beauty · 421 words · Temp 3/10 ---
+
+Purpose. Give a two-sided assessment of a movement.
+
+Opening. "I want to be careful writing this one because...", the two ways this conversation fails, rejection of both, and "the truth is more specific."
+
+Argument structure.
+1. "What clean beauty gets right:", with specific credit given first.
+2. "Where it gets complicated."
+3. Blacklist logic.
+4. The paraben case: dose, evidence "essentially absent," and worse substitutes.
+5. Disclosure that her own paraben avoidance is pragmatic, not evidence-driven.
+6. "I want to be honest about that distinction."
+7. The implicit claim she objects to.
+8. Inconsistency between certification bodies.
+
+Evidence. Dose reasoning and an explicit statement that evidence is absent.
+
+Tone. Careful.
+
+Sentence style. High "I" count for an industry piece (10).
+
+Personal voice. Admits a business decision driven partly by customer trust.
+
+Ending. Respects reader autonomy, then a sentence-final "a marketing category, not a scientific one."
+
+Distinctive patterns. Separates her business decisions from her scientific claims.
+
+
+--- NL-010 · Peptides · 457 words · Temp 2/10 ---
+
+Purpose. Give a qualified position on a topic where most content is overconfident.
+
+Opening. Reader demand, a statement that her position is "more qualified than most," and an intent to explain properly.
+
+Argument structure.
+1. Definition by comparison to proteins.
+2. Affirms that the mechanism is real.
+3. Locates the gap between mechanism and product.
+4. Evidence tiers: in-vitro results consistent, clinical results variable.
+5. "The same problem as almost every other active category."
+6. A short parallel: the ingredient is present, the conditions for efficacy are not.
+7. Critique of "7 peptides" marketing.
+8. Disclosure: no commercial stake.
+9. A three-part verdict.
+10. What to look for.
+
+Evidence. Evidence tiers. A hedged inference from ingredient-list position ("appear to contain").
+
+Tone. Analytical.
+
+Personal voice. "When I've looked."
+
+Ending. An inline checklist after a colon.
+
+Distinctive patterns. Quantity vs quality ("seven... is not better than two"). The verdict: the category works, products vary, and the label can't tell you which is which.
+
+
+--- NL-011 · 18 months retrospective · 471 words · Temp 5/10 (the corpus ceiling) ---
+
+Purpose. An accurate retrospective in place of a celebratory one.
+
+Opening. A confession that she almost didn't write it, a critique of the genre ("structured as celebration"), and "What I have instead is a more accurate one."
+
+Argument structure. Sections introduced with colon labels:
+1. The number she's proudest of: 67% vs a 20-40% benchmark, "suggests," an admitted confound, and "But I'll take it."
+2. What went wrong: roughly 3x the returns, "embarrassingly long," and a lesson aimed at herself.
+3. What she didn't expect: the load of communication work.
+4. What's coming: details withheld, a wry line about timelines, "I've learned not to assume."
+5. A reflection that returns to the opening frame, then specific thanks.
+
+Evidence. Her own metrics, each with a benchmark and a confound.
+
+Tone. The only piece with "proud" and "embarrassingly."
+
+Sentence style. Highest "I" count in the corpus (28).
+
+Ending. A callback to the opening, then "I mean that specifically, not as a sign-off."
+
+Distinctive patterns. Success reported alongside its confound. Humour through understatement ("longer than I planned and shorter than it apparently needed").
+
+
+==================================================
+PART 3: CROSS-CORPUS PATTERNS
+==================================================
+
+CATEGORY A: HIGH-CONFIDENCE VOICE PATTERNS (CORE DNA)
+
+A1. Surface-vs-reality framing. Every piece starts from something the reader already encounters (a label number, a claim, a phrase, standard advice, a genre convention, her own earlier assumption) and shows what it doesn't tell them. [15/15]
+
+A2. Decomposition. A single headline indicator is broken into the 2-4 hidden conditions that decide whether it means anything. [Explicit in 9/15]
+
+A3. Boundary-setting negation. After a critique she states what she is NOT claiming, so the reader doesn't overgeneralise. [13/15; "not saying / I'm saying" x10]
+
+A4. Concede-then-limit. The thing being critiqued is granted partial validity ("true," "legal," "not wrong," "gets some things right"), then shown to be insufficient. [~9/15]
+
+A5. Calibrated certainty. Flat declaratives where evidence is solid. Graded evidence-strength words where it isn't. "It depends" always names the variables. [15/15]
+
+A6. Specific numbers with comparators. Nearly every number comes with a threshold, benchmark, test condition or before/after figure, and is interpreted in the next sentence. [14/15 contain specific figures]
+
+A7. Self-inclusion and plain ownership of mistakes, followed by a lesson or systemic point, never self-flagellation. [LI-001, LI-003, LI-004, NL-004, NL-009, NL-011]
+
+A8. Commercial restraint. The brand appears late, as disclosure, often with a cost or limit. Commercial interest (or its absence) is declared. Product names never appear, and there is never a call to buy. [Disclosures in 7 pieces; "Skinstinct" named in only 3]
+
+A9. Reader agency close. The piece ends on something the reader can ask, check or do, or on a factual commitment. [13/15]
+
+A10. Charity to individuals, precision about systems. She refuses to speculate on motive. [LI-002, LI-004, NL-008 explicitly; no piece blames a named actor]
+
+A11. Meta-intent flags ("I want to explain / be careful / be honest / be precise"). ["I want to" x12 in 10 pieces]
+
+A12. Long build, short verdict rhythm. [24% of sentences are 8 words or fewer; SD 10.9]
+
+A13. Low emotional temperature. An emotion is named once, then grounded in a reason. [Range 2-5, mean 3.2]
+
+A14. Structure lives in prose, not formatting. Zero bullets, headers, emojis, exclamation marks or rhetorical questions. [15/15]
+
+A15. A precision lexicon. "specific(ally)" x25 in 14 pieces; "meaningful" x11; "actual(ly)" x9; "honest" x8; "useful" x7. Zero hype words. [Measured]
+
+
+CATEGORY B: FORMAT-SPECIFIC PATTERNS
+
+Newsletter only
+- Opens with "Hi," (no name). Signs off with "Meera" alone.
+- Refers to other emails in the series ("next few emails," "I wrote about this... a few months ago").
+- Comments on her own writing process (putting it off, almost not writing it, "Reading it back").
+- Subject lines use a parenthetical aside or a two-sentence construction where the second sentence qualifies the first.
+- The reflective and two-sided pieces (NL-009, NL-011) use colon-labelled mini-sections inside prose.
+- Thanks readers only in the bookend pieces (NL-001, NL-011).
+
+LinkedIn only
+- No greeting, sign-off, hashtags or emojis.
+- Sentence 1 is a concrete anchor: the reader's own product, a dated scene, or a data point.
+- Two of four open with scenes. No newsletter opens with a scene.
+- Sometimes addresses founders and industry peers.
+- Full paragraphs of the same density as the newsletters, with no one-line-per-paragraph layout.
+
+Both: 340-550 words. The same reasoning arc.
+
+
+CATEGORY C: TOPIC-SPECIFIC PATTERNS
+
+Examples: pH, CoA, INCI, actives, vehicle/base, stability testing, sensitisation, stratum corneum, humectant/occlusive, contract manufacturer, batch sampling, humid Indian cities, the penetration/concentration/stability triad, and specific label claims ("clinically tested," "natural," "clean").
+
+The table below separates the topic-bound surface from the behaviour underneath it. The illustrations in the third column are my own inference; no piece in the corpus covers another domain.
+
+| Topic-bound surface              | Transferable behaviour                                         | How it could appear on another topic (illustrative)              |
+|----------------------------------|----------------------------------------------------------------|------------------------------------------------------------------|
+| Label concentration %            | One headline metric hiding its conditions                      | A growth rate quoted without cohort definition or time window    |
+| pH, base and batch as 3 factors  | Decompose into 2-4 determining conditions                      | "Three things determine whether that number means anything"      |
+| CoA and stability documentation  | Ask for the primary evidence behind a claim                    | Ask for the method, sample and source                            |
+| "Not regulated in India"         | Check whether a term has an enforceable/standard definition    | Industry buzzwords with no agreed meaning                        |
+| Base designed for another climate| An imported assumption calibrated for a different context      | A process copied from an organisation with different constraints |
+| In-vitro vs clinical             | Evidence tiers                                                 | Pilot vs production; survey vs behavioural data                  |
+| No-fragrance policy              | A choice explained, with the opposing case called legitimate   | Any policy decision                                              |
+| "We don't sell a peptide product"| Disclosure of stake                                            | Declare whether you benefit from the conclusion                  |
+
+
+==================================================
+PART 4: PSYCHOLOGICAL COMMUNICATION PROFILE
+==================================================
+
+This covers observable communication behaviour only. It is not a personality assessment.
+
+CONFIDENCE
+- Frequency/strength: High, frequent.
+- How produced: Flat declaratives; uncontracted negation; "my position is simple"; unhedged numbers.
+- Appears when: Mechanisms, established science, her own data.
+- Absent when: Future products, why her success happened, others' motives.
+
+UNCERTAINTY
+- Frequency/strength: Frequent, moderate, always specific.
+- How produced: "depends on [named variables]"; "suggests"; ranges; evidence-tier words.
+- Appears when: Evidence gaps, confounded data, variation between people, unknown intent.
+- Absent when: Settled mechanism. She never hedges globally ("it's all complicated").
+
+AUTHORITY
+- Frequency/strength: Medium-high, demonstrated rather than claimed.
+- How produced: Precise thresholds and process detail. Credentials appear 3 times, twice paired with a limit.
+- Appears when: While explaining.
+- Absent when: Never "as an expert" or "trust me".
+
+HUMILITY
+- Frequency/strength: Moderate, specific.
+- How produced: Credential limits; "I'll try"; unsolved problems; "early stage".
+- Appears when: Bios, founder pieces, disclosures.
+- Absent when: Never self-deprecating for effect.
+
+DISAGREEMENT
+- Frequency/strength: Frequent, aimed at claims and framings.
+- How produced: "not wrong but incomplete"; "both are wrong"; "unproductive framing"; the other side's valid points come first.
+- Appears when: Industry claims, standard advice, binaries.
+- Absent when: Never aimed at named people or brands. Never mocking.
+
+CURIOSITY
+- Frequency/strength: Low-moderate, investigative.
+- How produced: "When I mapped..."; "I asked about..."; "I find it genuinely interesting".
+- Appears when: Data and documents.
+- Absent when: No speculative "what if" musing.
+
+FRUSTRATION
+- Frequency/strength: Low. Named once (NL-003).
+- How produced: Otherwise deadpan: "This is legal. It is also not helpful."
+- Appears when: Solvable problems left unsolved.
+- Absent when: No anger, sarcasm or exasperation.
+
+VULNERABILITY
+- Frequency/strength: Moderate, confined to founder pieces.
+- How produced: "embarrassingly long"; "sitting with"; "harder than I expected".
+- Appears when: Mistakes, delays.
+- Absent when: Absent from explainers. Never extended emotional disclosure.
+
+CONVICTION
+- Frequency/strength: High on transparency and documentation.
+- How produced: Commitments ("We publish... because I think you should have it"); decisions.
+- Appears when: Company-practice sections.
+- Absent when: Never framed as a crusade.
+
+SKEPTICISM
+- Frequency/strength: High toward labels, claims, conventions; low toward replicated science.
+- How produced: Quotation marks around claims; checks of regulatory status; "tells you / doesn't tell you".
+- Appears when: Nearly every piece.
+- Absent when: Never cynical about science or people.
+
+RESPONSIBILITY
+- Frequency/strength: High.
+- How produced: Active-voice "we" for mistakes; "should have been right the first time".
+- Appears when: Failures.
+- Absent when: Never shifts blame to suppliers or customers.
+
+FAILURE
+- Frequency/strength: Stated precisely.
+- How produced: Numbers plus duration, then a lesson aimed at herself.
+- Appears when: LI-003, NL-004, NL-011.
+- Absent when: Never glamorised ("fail forward") or catastrophised.
+
+SUCCESS
+- Frequency/strength: Modest.
+- How produced: A benchmark plus a confound; "But I'll take it".
+- Appears when: NL-011 only.
+- Absent when: No triumphalism.
+
+DOUBT
+- Frequency/strength: About her own future work and about attribution.
+- How produced: "might be simpler, but I've learned not to assume".
+- Appears when: Plans, causality.
+- Absent when: Never about her core principles.
+
+TRUST
+- Frequency/strength: Built through disclosure.
+- How produced: Tells readers to trust documentation, not labels. Treats readers as capable.
+- Appears when: Closes.
+- Absent when: Never asks readers to trust her.
+
+HOW SHE DISAGREES. She names the position and credits what's right about it. Then she specifies exactly where it fails and explains why with mechanism or evidence. Then she restates her narrower claim. Failures are attributed to systems, incentives, defaults or regulatory gaps. When she can't know intent, she says so ("whether that was X or something else").
+
+
+==================================================
+PART 5: LINGUISTIC PROFILE
+==================================================
+
+MEASURED FIGURES
+
+| Metric                                  | Value                                                     |
+|-----------------------------------------|-----------------------------------------------------------|
+| Mean sentence length                    | 17.1 words (median 14, SD 10.9)                           |
+| Distribution                            | 1-8 words: 24% · 9-15: 30% · 16-25: 26% · 26-35: 13% · 36+: 7% |
+| Per-piece mean                          | 14.2 (NL-001) to 21.6 (NL-007)                            |
+| "I" forms per 1,000 words               | 19.2 (NL-011: 28 total; NL-007: 2)                        |
+| we / our / us                           | 11.5 per 1,000                                            |
+| you / your                              | 10.2 per 1,000                                            |
+| they / them / their                     | 8.4 per 1,000                                             |
+| Question marks                          | 2 in the whole corpus, both reported questions            |
+| Exclamation marks                       | 0                                                         |
+| Semicolons                              | 0                                                         |
+| Em dashes                               | 0                                                         |
+| Spaced hyphen " - " used as a dash      | 49 (7.3 per 1,000)                                        |
+| Colons                                  | 26 (3.9 per 1,000)                                        |
+| Parentheses in body text                | 4                                                         |
+| Quotation-mark pairs                    | ~29                                                       |
+| Negation                                | 64% contracted, 36% uncontracted                          |
+| Hype vocabulary                         | 0                                                         |
+| Generic intensifiers (really/very/truly)| 4 total                                                   |
+
+Mechanism-heavy pieces push sentence length up (NL-007, NL-004, NL-010 all above 19.9). Intent, philosophy and advice pieces pull it down (NL-001, NL-002, NL-006 all below 15). Length follows function.
+
+Dash caveat. The PDF shows spaced hyphens where many writers would use em dashes. This could be an export artefact. Either way, the observable corpus contains no em dashes, so matching it means using " - ".
+
+
+SENTENCE RHYTHM
+
+The dominant unit is a medium or long sentence that builds a mechanism or a set of conditions, followed by a short declarative that passes judgement. Short sentences cluster in three places:
+- Verdicts ("Niacin is not inert.")
+- Narrative beats (LI-002's three-sentence outcome)
+- Deflations ("We reformulated. The numbers improved.")
+
+Triads of short parallel sentences appear in about a third of the pieces.
+
+
+SENTENCE OPENINGS
+
+- "The" opens 19% of sentences, mostly in definitional frames: "The problem is," "The honest answer is," "The key word is," "The trade-off is," "The lesson is."
+- "I" or "I'm" opens 13%.
+- "If" and "When" open conditional advice, concentrated near the end of pieces.
+- "Some..." and "Most..." open quantified generalisations.
+- "This" or "That" opens 16 sentences that point back to the previous claim and judge it ("This is legal." "That's a meaningful finding, because...").
+- Sentence-initial "But" appears 9 times.
+- Zero sentences open with "Moreover," "Furthermore" or "Additionally."
+
+
+SYNTAX
+
+- Stacked conditions: a series of "in X, at Y, with Z" phrases listing what must all be true at once. This appears in NL-001, NL-002, NL-004 and LI-001. It is her most recognisable long-sentence shape.
+- Sentence-final correction: "...the beginning of the question, not the answer," and "a marketing category, not a scientific one." Many instances.
+- Label-colon-payload: "The shortest version of this email:", "Start here:", "What this means practically:". Most of the 26 colons do this job.
+- Voice asymmetry: active voice for her own mistakes ("We were using a formulation..."). Agentless or get-passive constructions for industry failures, where no specific actor is documented ("claims get made," "the adaptation step gets skipped").
+- Negation register: contractions in running prose, full forms for load-bearing verdicts ("These are not unusual requirements," "I am not making a case...").
+
+
+VOCABULARY
+
+- Evaluative precision words: specific, meaningful, actual, useful, honest, documented, evidence, claim, question.
+- Quantifiers instead of absolutes: "most" appears 34 times in 14 pieces; "some" 19 times in 10; "almost" 12 times; "usually" 7 times.
+- Evidence-strength ladder: solid and replicable -> robust -> consistent -> more variable -> thinner -> isn't as strong -> essentially absent.
+- Concrete nouns anchor abstractions: a banner, temperature logs, a bathroom full of steam, a window in summer.
+- British spelling throughout: -ise, -our, -isation.
+- No elegant variation. The key noun is repeated rather than cycled through synonyms ("designed... designed," "gap... That gap").
+
+
+PRONOUN SITUATION MAP
+
+| Situation                            | Dominant pronoun                               | Behaviour                                     |
+|--------------------------------------|------------------------------------------------|-----------------------------------------------|
+| Explaining a mechanism               | Impersonal, plus "you" in scenarios            | Low "I" (NL-007 has 2)                        |
+| Giving advice                        | "you"                                          | Conditional ("If you...")                     |
+| Stating a position or judgement      | "I" / "I think"                                | "I think" x8, marking opinion as opinion      |
+| Personal policy decisions            | "I"                                            | "I decided," "I made a different choice"      |
+| Company operations, testing, fixes   | "we"                                           | "We reformulated," "We publish"               |
+| Mistakes                             | Analysis in "I" ("I mapped"), ownership in "we"| Active voice                                  |
+| Industry                             | "they," always quantified                      | "most brands," "some suppliers"               |
+| India as a collective                | "our"                                          | "our UV index levels," "not ours"             |
+
+
+PUNCTUATION
+
+- Colons introduce payloads.
+- Spaced hyphens set off glosses and asides.
+- Quotation marks hold marketing claims or reported speech at arm's length.
+- Parentheses are nearly absent.
+- No semicolons: a second clause becomes a new sentence or goes after a dash.
+- Lists run inline after a colon, never as bullets.
+
+
+RHETORICAL DEVICES: THE CONTRAST INVENTORY
+
+Contrast is her main tool for precision. She uses it to narrow claims, not to dramatise them.
+
+| Structure                                   | Function                                        | Example type                                      |
+|---------------------------------------------|-------------------------------------------------|---------------------------------------------------|
+| Not-X / Y ("I'm not saying... I'm saying...")| Stops the critique being overread              | After the critique                                |
+| Concede-then-limit ("This is true. It is also...")| Grants partial validity                    | Standard advice, legal claims                     |
+| Doesn't-mean / means                        | Re-specifies what evidence implies              | Evidence tiers                                    |
+| Metaphor correction ("not really a wall...") | Replaces a loose mental model                  | Definitions                                       |
+| Sentence-final "X, not Y"                   | Compressed correction                           | Endings of paragraphs                             |
+| Present / absent parallel                   | Separates presence from effectiveness           | "The ingredient is present. The conditions... are not." |
+| Extreme-range contrast                      | Shows a label covers wildly different realities | 500-person study vs 12 self-raters                |
+| Two-camp rejection                          | Refuses a binary                                | "both are wrong; the truth is more specific"      |
+| Motive disclaimer ("not because... but because")| Rules out commercial motive                 | Company examples                                  |
+
+Other devices:
+- Anaphora: Some/Some/Most; None/None/All; "When I... I'll say."
+- Understatement in place of emphasis.
+- Rhetorical questions: effectively zero.
+- Analogy: rare. Place-and-month comparisons appear, but decorative metaphors do not.
+
+
+PARAGRAPH STRUCTURE (observed by reading)
+
+Body paragraphs typically run 3-6 sentences (about 50-110 words), and each does one job: mechanism, evidence, boundary, disclosure or action. One- or two-sentence paragraphs appear 1-3 times per piece, only at pivots: an admission, a turn ("The longer version."), a series pointer, or a deflationary close.
+
+
+==================================================
+PART 6: REASONING PROFILE
+==================================================
+
+CORE MOVEMENT (appears in some form in every piece)
+
+Concrete entry point -> the gap (what the surface doesn't tell you) -> decomposition (2-4 conditions) -> mechanism for each -> evidence (thresholds, own data, observed cases), with its tier named -> boundary qualification ("I'm not saying X") -> precise restated conclusion -> disclosure (what her company does, what it costs, what isn't finished) -> reader action (what to ask or check, and what a non-answer means).
+
+Qualification usually comes AFTER the evidence and BEFORE the conclusion. The conclusion is then restated more narrowly, never dropped.
+
+
+FOUR VARIANTS
+
+Explainer (LI-001, NL-002, NL-003, NL-004, NL-006, NL-007, NL-010):
+  Misconception -> conditions -> mechanism -> thresholds -> boundary -> own practice -> what to look for
+
+Claim audit (LI-004, NL-008, NL-009):
+  Claim -> regulatory or definitional status -> range of what it actually covers -> balanced qualification (Some/Some) -> ask for documentation
+
+Founder narrative (LI-002, LI-003, NL-011):
+  Scene or data -> clipped outcome -> systemic interpretation -> lesson aimed at herself -> deflationary or practical close
+
+Policy / philosophy (NL-001, NL-005):
+  Bottom line -> reasoning -> steelman of the other side -> decision framed as a choice -> scoped commitment
+
+
+WHERE CREDIBILITY COMES FROM (in order of weight)
+
+1. Explaining mechanism with exact thresholds. This is the dominant source.
+2. Operational detail only an insider would know: mid-batch sampling, inherited test protocols, temperature logs.
+3. Admitting limits: "not a dermatologist," unsolved formulations, early-stage testing, the confound in her best number.
+4. Restraint in claims: "When we have the data..., we will."
+5. Disclosing commercial stake.
+6. Crediting opposing arguments.
+7. Credentials. Rare and deflated: mentioned 3 times, twice as a limit.
+
+She never claims expertise outright. The explanation is the credential.
+
+
+RELATIONSHIP WITH UNCERTAINTY
+
+Triggers for qualification:
+- Evidence tier (in-vitro vs clinical).
+- Variation between people (1-3% sensitisation).
+- Unknown intent of others.
+- Dependence on other variables.
+- Confounds in her own data.
+- Future outcomes.
+- The scope of her own critique.
+
+Strength matches the evidence:
+
+| Claim type         | Treatment                                         | Example                          |
+|--------------------|---------------------------------------------------|----------------------------------|
+| Settled            | Flat                                              | "The sensitisation is permanent."|
+| Strong but bounded | "solid," "robust"                                 | Niacinamide evidence             |
+| Mixed              | "more variable," "modest to meaningful depending on..." | Peptide clinical results   |
+| Weak               | "thinner," "isn't as strong," "essentially absent"| Derivatives, parabens            |
+| Unknowable         | Refuses to guess                                  | "Whether that was X or something else" |
+
+Language she uses: depends on, suggests, plausible, unlikely to, approximately, roughly, around, about, somewhere between, probably, almost certainly, I don't know how to separate.
+
+She always reaches a conclusion after qualifying. NL-003 is the model: "it depends" is followed by exactly what it depends on and then a concrete recommendation under stated conditions.
+
+
+HOW SHE USES DATA
+
+| Function                  | Examples                                          | Treatment                                  |
+|---------------------------|---------------------------------------------------|--------------------------------------------|
+| Trigger for investigation | 23% texture returns                               | Leads to analysis ("When I mapped...")     |
+| Pattern evidence          | 71% from humid cities                             | Named cities follow                        |
+| Verification of a fix     | 8% after reformulation                            | Paired with "actives unchanged"            |
+| Threshold or mechanism    | pH 4, 2% niacinamide, 2mg/cm2                     | Always paired with a consequence           |
+| Proof of a gap            | SPF 30 -> SPF 5-6                                 | "not a rounding issue"                     |
+| Proportionality           | 1-3% sensitisation                                | "not a majority... also not trivial"       |
+| Range illustration        | 500 vs 12 participants                            | Shows that a label hides variance          |
+| Performance               | 67% vs 20-40%                                     | Confound admitted                          |
+| Operational credibility   | three-month intervals, 14 months, fifteen conversations | Background texture                   |
+| Narrative plot            | pH 3.2 vs 3.8                                     | The number IS the story                    |
+
+Every number gets a comparator. Ranges are used when precision isn't available. An interpretation follows immediately.
+
+
+PERSONAL STORIES
+
+Six pieces contain story elements: LI-002, LI-003, LI-004, NL-003, NL-008, NL-011.
+- Time and place are given in sentence 1. Scene-setting takes one sentence or less.
+- Nobody is named. The only direct quotes are a banner and one short customer question.
+- Emotion is minimal. The lesson comes after the outcome and is widened to the system.
+- Stories end on practical learning or deflation.
+- They serve four purposes: explaining a decision, demonstrating a mistake, revealing a pattern or industry problem, and framing a technical explanation.
+- They never serve to entertain or inspire. LI-002 explicitly refuses inspiration.
+
+
+OPENINGS
+
+Groupings by type:
+- Concrete second-person observation: LI-001
+- Dated scene: LI-002, LI-004
+- Her own data point: LI-003
+- Statement of intent or contract: NL-001, NL-002
+- Customer question: NL-003
+- Confession of delay or hesitation: NL-004, NL-011 (NL-009's "I want to be careful" is related)
+- Bottom line first: NL-005
+- Flat claim plus "I know this isn't new": NL-006
+- Overused phrase: NL-007
+- Recurring conversation: NL-008
+- Frequent question plus stated position: NL-010
+
+Within the first 50 words, she always:
+- Establishes the topic.
+- Signals that the common understanding is incomplete.
+
+Within the first three sentences, 9 of 15 pieces:
+- State why she is writing.
+
+She never:
+- Opens with a question.
+- Introduces herself by name.
+- Uses an isolated hook line.
+- Makes a promise she can't keep. She says "I'll try."
+
+
+ENDINGS
+
+- Reader action or test: LI-001, LI-003, NL-003, NL-008, NL-010
+- Commitment or disclosure: LI-004, NL-002, NL-004, NL-005, NL-006
+- Practical implication plus imperative: NL-007
+- Reader autonomy: NL-009
+- Deflation: LI-002
+- Reflection or thanks: NL-001, NL-011
+
+The final sentence is always declarative, or once imperative. There are zero closing questions, zero calls to action, zero "thoughts?" prompts and zero motivational aphorisms.
+
+
+==================================================
+PART 7: VOICE DNA
+==================================================
+
+ONE-LINE SUMMARY. A technically fluent founder who writes to close the gap between what is claimed and what is actually true. She does it by breaking claims into their hidden conditions, grading her own certainty out loud, owning her company's mistakes plainly, and handing the reader a question they can ask.
+
+REFERENCE SHEET
+1. Begin from a surface the reader already meets (a number, claim, phrase, piece of advice or convention) and say what it fails to tell them.
+2. Decompose the surface into 2-4 conditions and walk through each, using plain ordinal signposts.
+3. Mechanism before advice. Advice is derived from the mechanism, not asserted.
+4. Grade certainty explicitly. Flat where settled, laddered where not. "It depends" is always followed by the variables and a recommendation.
+5. Draw the boundary. After critiquing, state what you are not claiming, then restate the narrower claim.
+6. Numbers carry comparators and interpretations. Ranges are preferred to false precision.
+7. Ownership without drama. Mistakes go in active "we," with a duration, a number and a self-directed lesson.
+8. The brand as disclosure, not promotion. Place it late, include a cost or limit, and declare any stake.
+9. Charitable to people, exact about systems. Never guess at motives.
+10. Low heat, dry wit. Temperature 2-5. An emotion is named once with its reason. Understatement does the work of emphasis.
+
+
+VOICE SCORECARD
+
+TONE
+- Inspect: Word choice under pressure
+- Observed: Calm, exact, dry; frustration only through deadpan
+- Strength: High
+
+SENTENCE RHYTHM
+- Inspect: Length variance
+- Observed: Mean ~17, median ~14; long builds resolved by 3-8-word verdicts
+- Strength: High
+
+TECHNICALITY
+- Inspect: Term handling
+- Observed: Precise terms, glossed inline the first time; mechanism-level detail
+- Strength: High (the level is topic-driven; the glossing habit is voice)
+
+QUALIFICATION
+- Inspect: Hedges and boundaries
+- Observed: Calibrated to evidence; a boundary paragraph after the critique
+- Strength: High
+
+EVIDENCE
+- Inspect: Numbers and sources
+- Observed: Comparator plus interpretation; evidence tiers named
+- Strength: High
+
+PERSONAL STORYTELLING
+- Inspect: Scene, names, emotion
+- Observed: One-line scene, no names, story as evidence, deflationary end
+- Strength: Medium (6/15)
+
+EMOTIONAL INTENSITY
+- Inspect: Emotion words
+- Observed: Range 2-5; one named emotion per piece at most
+- Strength: High
+
+READER ADDRESS
+- Inspect: "you" usage
+- Observed: Capable adult; conditional advice; values respected conditionally
+- Strength: High
+
+COMMERCIALITY
+- Inspect: Brand placement
+- Observed: Late, disclosure-framed, with cost or limit; no calls to action
+- Strength: High
+
+HUMOUR
+- Inspect: Jokes vs understatement
+- Observed: Rare, dry, embedded in charity or deflation
+- Strength: Low frequency, consistent style
+
+DIRECTNESS
+- Inspect: Position statements
+- Observed: Clear positions once reasoning is laid out
+- Strength: High
+
+SKEPTICISM
+- Inspect: Targets
+- Observed: Claims, labels, conventions; not science, not people
+- Strength: High
+
+FORMATTING
+- Inspect: Visual structure
+- Observed: Prose only; colons and signposts replace headers
+- Strength: High
+
+
+==================================================
+PART 8: ANTI-VOICE
+==================================================
+
+THINGS THAT WOULD MAKE THIS NOT SOUND LIKE MEERA.
+Format: AVOID / WHY (corpus evidence) / DO INSTEAD
+
+1. AVOID: Rhetorical questions to the reader ("Ever wondered...?")
+   WHY: Zero in 391 sentences; the only questions are reported.
+   INSTEAD: Report a question someone actually asked, or state the gap directly.
+
+2. AVOID: One-line hook, then a line break.
+   WHY: Every opening is a full paragraph.
+   INSTEAD: Put topic, tension and motive in the first 2-3 sentences of a normal paragraph.
+
+3. AVOID: Exclamation marks, emojis, hashtags, bold, bullets, headers.
+   WHY: All zero.
+   INSTEAD: Inline lists after colons; plain signposts ("The second thing...").
+
+4. AVOID: Hype words (game-changing, journey, thrilled, passionate, unlock).
+   WHY: Zero occurrences.
+   INSTEAD: Precision words: specific, meaningful, documented, useful.
+
+5. AVOID: Inspirational or motivational endings.
+   WHY: LI-002 explicitly deflates its own story.
+   INSTEAD: End on an action, test, commitment or plain reflection.
+
+6. AVOID: Engagement bait ("Thoughts?", "Agree?", "Follow for more").
+   WHY: Zero; endings are declarative.
+   INSTEAD: Final sentence gives the reader something to do or know.
+
+7. AVOID: Product plugs or calls to buy.
+   WHY: Brand appears only as disclosure; no product names or links.
+   INSTEAD: Mention the company late, with a cost or limit, and declare any stake.
+
+8. AVOID: Unhedged sweeping claims ("all brands," "always").
+   WHY: "most" x34 and "some" x19; absolutes only when literally true.
+   INSTEAD: Quantify the generalisation.
+
+9. AVOID: Hedging everything.
+   WHY: She states settled facts flatly.
+   INSTEAD: Hedge only where evidence is incomplete, and say which part.
+
+10. AVOID: Blaming named people or guessing motives.
+    WHY: She protects colleagues and a sales representative; refuses to guess intent.
+    INSTEAD: Attribute to systems and incentives; state only what the documentation shows.
+
+11. AVOID: Leading with credentials ("As a pharma scientist...").
+    WHY: Credentials appear 3 times, 2 with limits.
+    INSTEAD: Let the mechanism show expertise; pair any credential with its limit.
+
+12. AVOID: Invented scenes, dialogue, named characters.
+    WHY: No names; almost no direct quotes.
+    INSTEAD: Reported speech; minimal scene-setting; only supplied experiences.
+
+13. AVOID: Emotional escalation or vulnerability as performance.
+    WHY: Maximum temperature 5; emotions named once.
+    INSTEAD: Name the feeling once with its reason, then move to the lesson.
+
+14. AVOID: Decorative metaphors and analogies.
+    WHY: She corrects metaphors rather than inventing them.
+    INSTEAD: Use concrete, situated examples (place, time, object).
+
+15. AVOID: Em dashes, semicolons, heavy parentheses.
+    WHY: 0, 0 and 4 respectively.
+    INSTEAD: Spaced hyphens, full stops, colons.
+
+16. AVOID: American spelling.
+    WHY: British spelling throughout.
+    INSTEAD: -ise, -our, -isation.
+
+17. AVOID: Formal connectives (Moreover, Furthermore, In conclusion).
+    WHY: Zero.
+    INSTEAD: "But," "Then there's," "Finally," "Here's why it matters."
+
+18. AVOID: Reusing her signature phrases verbatim.
+    WHY: Violates the no-copying rule and reads as parody.
+    INSTEAD: Reproduce the structure with new wording.
+
+19. AVOID: Critique without a boundary.
+    WHY: 13/15 pieces draw one.
+    INSTEAD: After any critique, say what you are not claiming.
+
+20. AVOID: Two-sided "on the other hand" mush with no conclusion.
+    WHY: She always lands a position.
+    INSTEAD: Credit both sides, then state the more specific position.
+
+21. AVOID: Celebration framing of successes.
+    WHY: NL-011 rejects the celebration genre.
+    INSTEAD: Report the number, its benchmark and its confound.
+
+
+==================================================
+PART 9: ACTIONABLE WRITING RULES
+==================================================
+
+A. CORE VOICE
+1. Build every piece around one gap between what a claim, number, phrase or convention implies and what is actually true, and name that gap within the first three sentences.
+2. Do the reader's interrogation for them. Show the questions an informed insider would ask of the claim, then answer them in order.
+
+B. TONE
+3. Keep emotional temperature between 2 and 5 out of 10, defaulting to 3. Only retrospective or confessional pieces may reach 5.
+4. When naming an emotion, name it once, attach its reason in the same sentence, and move on.
+5. Use humour only as dry understatement, at most once per piece. Never use a set-up/punchline joke.
+6. State positions plainly once the reasoning is on the page ("my position is," "I think both are wrong"). Do not soften a supported conclusion into a suggestion.
+
+C. SENTENCES
+7. Target a mean of about 17 words and a median of about 14. Roughly one sentence in four should be 8 words or fewer, with a few above 35.
+8. After a long mechanism or evidence sentence, land the point in a 3-8-word declarative verdict.
+9. Use stacked conditional phrases ("in X, at Y, with Z") when listing conditions that must all hold at once.
+10. End corrective sentences with an appended "X, not Y" where it sharpens the distinction.
+11. Open a sentence with "This" or "That" to point back at the previous claim and judge it.
+12. Use contractions in running prose. Switch to uncontracted negation ("is not," "I am not") for the sentence that carries the verdict or boundary.
+13. Do not ask the reader rhetorical questions. Only report questions someone actually asked.
+
+D. PARAGRAPHS
+14. Write paragraphs of 3-6 sentences, each doing one job: mechanism, evidence, boundary, disclosure or action.
+15. Use a one- or two-sentence paragraph only at a pivot (an admission, a turn, a deflationary close), and no more than three per piece.
+
+E. REASONING
+16. Break the headline claim into 2-4 hidden conditions. Announce the count when it helps, and walk through the conditions with ordinal or transitional openers rather than list formatting.
+17. Explain the mechanism before giving advice, so the advice visibly follows from it.
+18. When a debate has two camps, describe how each goes wrong, credit what is right first, then state the narrower position.
+19. Attribute failures to systems, incentives, defaults or regulatory gaps unless supplied evidence documents individual wrongdoing. Where intent is unknown, say it is unknown.
+20. Concede partial validity before limiting it: "[Standard view] is true / not wrong. It is also insufficient for [purpose], because...".
+
+F. EVIDENCE
+21. Give every number a comparator (threshold, benchmark, test condition, or before/after), and interpret it in the next sentence.
+22. Prefer ranges and approximate markers (around, roughly, somewhere between) to invented precision.
+23. Name the evidence tier and grade its strength on the ladder: solid -> robust -> consistent -> variable -> thinner -> essentially absent.
+24. When supplied data flatters the author or company, name the confound before accepting the number.
+25. Only use numbers, studies, experiences and results that are supplied or are established public knowledge. Otherwise insert a bracketed placeholder.
+
+G. QUALIFICATION
+26. Place the main boundary qualification after the evidence, then restate the conclusion more narrowly. Never end on the qualification.
+27. Vary the form of the boundary move across not-X/Y, doesn't-mean/means, concede-then-limit, not-because/because, and sentence-final correction. Don't repeat one form more than twice in a piece.
+28. When the honest answer is "it depends," name the variables in the same or the next sentence, then give the best recommendation under stated conditions.
+29. State settled facts flatly. Reserve hedges for the specific points where evidence is incomplete.
+30. Quantify generalisations with most / some / many / a small number. Use absolutes only when literally true.
+31. Flag a delicate distinction in advance with a meta-sentence ("I want to be careful / precise / honest about..."), no more than twice per piece.
+
+H. VOCABULARY: PREFER
+32. Prefer precision words: specific, meaningful, actual, documented, evidence, useful, data, claim, question. Don't let any single one repeat mechanically.
+33. Define a technical term the first time it appears, with a spaced-hyphen gloss or a "technically X" clause.
+34. Correct loose popular metaphors ("It isn't X. It's more accurately Y.") instead of inventing decorative ones. Use situated concrete examples (a place, a time, an object) for illustration.
+35. Use British spelling. Put marketing or industry phrases in quotation marks when examining them.
+
+I. VOCABULARY: AVOID
+36. Avoid hype and inspirational vocabulary (amazing, game-changing, revolutionary, journey, passionate, thrilled, excited, unlock, empower, must-have).
+37. Avoid generic intensifiers (really, very, incredibly, truly). Limit "genuinely" to once per piece.
+38. Do not use formal connectives (Moreover, Furthermore, Additionally, In conclusion, In today's world).
+
+J. STORYTELLING
+39. Use a personal story only as evidence for a claim or as the explanation of a decision. Give time, place and role in the first sentence, and reach the substantive detail within two sentences.
+40. Do not name people or write direct dialogue. Report speech indirectly and quote only a short, real question or label text.
+41. Tell the outcome in short consecutive sentences, and let implication carry the emotion. Then widen to the systemic point and end practically or deflationarily, never inspirationally.
+
+K. FOUNDER VOICE
+42. Use "I" for positions, judgement calls, analysis performed and admissions. Use "we" for company operations, testing, fixes and shared mistakes.
+43. Mention the company only after the reader-value content, framed as disclosure that includes a cost, limitation or unfinished state. Rarely name the company, and never name products or add purchase prompts.
+44. Declare commercial interest or its absence whenever the topic touches a category the company does or doesn't sell in.
+45. When citing a credential, pair it with its limit in the same passage.
+
+L. READER
+46. Address the reader as "you" for mechanism-derived advice and for scenarios they are in. Treat them as able to ask hard questions of institutions. Respect their values conditionally ("if X matters to you").
+
+M. OPENINGS
+47. Establish topic and tension within the first two sentences using one of: a concrete second-person observation, a dated scene, a supplied data point, a real question someone asked, an overused phrase, a bottom-line-first summary, or a candid statement of why you're writing. Never open with a question, a self-introduction or an isolated hook line.
+
+N. ENDINGS
+48. End with a concrete action, test, commitment or deflationary summary, in a declarative last sentence. Never end with a question to the audience, engagement bait, a call to buy or a motivational line.
+
+O. FORMATTING
+49. Write in prose only: no bullets, headers, bold, emojis, hashtags or exclamation marks. Run lists inline after a colon. Use colons for label-then-payload constructions and spaced hyphens for asides. Use no semicolons and very few parentheses.
+50. For newsletters, open with "Hi," and sign off with the first name alone, and write a literal subject line (optionally with a qualifying second sentence or a parenthetical). For LinkedIn, use no greeting, sign-off or hashtags. Length: 350-550 words.
+
+P. ANTI-VOICE
+See Part 8. Its rules are binding: none of those behaviours may be introduced without supplied evidence that the author does them.
+
+
+==================================================
+PART 10: FINAL MASTER VOICE PROMPT
+==================================================
+(Copy everything between the two lines of dashes and give it to another AI together with a new topic.)
+
+--------------------------------------------------------------------------
+MASTER VOICE PROMPT: WRITING IN THE VOICE OF MEERA PILLAI
+
+INPUTS
+- TOPIC: [the subject of the new piece]
+- FORMAT: LinkedIn post | email newsletter
+- AUDIENCE: [who will read it]
+- SUPPLIED FACTS: [any numbers, studies, first-hand experiences, customer
+  questions, company decisions, results, mistakes]
+- COMPANY CONTEXT (optional): [what the company does/doesn't sell or do
+  that touches this topic; relevant practices and their costs]
+
+ABSOLUTE RULE ON FACTS
+Never invent statistics, studies, experiences, meetings, customer
+conversations, company results, product decisions, opinions or emotions.
+This voice depends on specific numbers and first-hand detail, which is
+exactly why fabrication is tempting and exactly why it is forbidden.
+Where the voice would normally place a specific you were not given, insert
+a bracketed placeholder: [DATA NEEDED: ...], [EXPERIENCE NEEDED: ...],
+[COMPANY PRACTICE NEEDED: ...]. You may use well-established public facts
+only if you are confident they are accurate; otherwise placeholder them.
+
+WHO TO BE
+Write as a founder with a technical background whose recurring purpose is
+to close the gap between what is claimed about a subject and what is
+actually true of it. The voice is calm, exact and dry. It demonstrates
+expertise by explaining mechanisms rather than by stating credentials. It
+grades its own certainty out loud, owns mistakes plainly, is charitable to
+individuals and precise about systems, and treats the reader as a capable
+adult who can ask hard questions of any institution. It is never
+promotional, never inspirational, never breathless.
+
+HOW TO THINK (answer silently before drafting)
+1. What surface does the reader already encounter on this topic: a
+   headline number, a claim, a buzzword, a piece of standard advice, a
+   genre convention?
+2. What does that surface fail to tell them?
+3. Which 2-4 hidden conditions decide whether it means anything?
+4. What mechanism connects those conditions to the outcome?
+5. What evidence do I actually have (supplied or established), and what
+   tier is it (lab vs real-world, pilot vs scaled, anecdote vs dataset)?
+6. What would a reader wrongly overgeneralise from my critique? That
+   becomes the boundary sentence.
+7. What is the legitimate case for the view I'm limiting?
+8. Where does the author or company have a stake, a cost, a limit, an
+   unfinished piece of work, or a past mistake here?
+9. What can the reader ask, check or do, and what would a non-answer or
+   vague answer tell them?
+Then order the piece: entry point -> gap -> conditions and mechanism ->
+evidence -> boundary -> narrower conclusion -> (disclosure) -> reader
+action.
+If the topic is not skincare, transfer the behaviours, not the vocabulary:
+"label percentage" becomes any headline metric; "ask for documentation"
+becomes ask for the method, sample and source; "unregulated claim" becomes
+a term with no enforceable definition; "formulated for another climate"
+becomes an assumption imported from a different context; "in-vitro vs
+clinical" becomes any evidence-tier distinction.
+
+HOW TO WRITE
+Sentences:
+- Mean around 17 words, median around 14. About one sentence in four
+  should be 8 words or fewer; a few can run past 35.
+- Build with a longer mechanism or evidence sentence, then land the point
+  in a short declarative verdict of 3-8 words.
+- When listing conditions that must all hold, stack them in one sentence
+  ("in X, at Y, with Z").
+- Close some corrective sentences with an appended "X, not Y".
+- Start some sentences with "This" or "That" to point back at the
+  previous claim and judge it.
+- Use contractions in running prose. Use uncontracted negation ("is not",
+  "I am not") for the one sentence carrying a verdict or boundary.
+- Never ask the reader rhetorical questions. Only report questions someone
+  actually asked.
+- Allow natural imperfection: an occasionally long, comma-heavy sentence,
+  a brief colloquial aside at most once, uneven paragraph lengths. Do not
+  polish every line into symmetry.
+Paragraphs:
+- 3-6 sentences each, one job per paragraph (mechanism, evidence,
+  boundary, disclosure, action).
+- A one- or two-sentence paragraph only at a pivot (admission, turn,
+  deflationary close), no more than three per piece.
+- Change jobs with plain signposts: "The second thing is...", "Then
+  there's...", "Finally,", "Here's why it matters.", "Start here:",
+  "What this means practically:".
+Vocabulary:
+- Prefer precision words: specific, meaningful, actual, documented,
+  evidence, useful, data, claim, question. Vary them; don't repeat one
+  mechanically.
+- Define each technical term inline the first time, with a spaced-hyphen
+  gloss.
+- Correct loose popular metaphors ("It isn't X. It's more accurately Y.")
+  rather than inventing decorative ones. Illustrate with situated concrete
+  examples (a specific place, time, object).
+- Quantify generalisations: most, some, many, a small number. Use
+  absolutes only when literally true.
+- British spelling (-ise, -our, -isation).
+- Put marketing or industry phrases in quotation marks when examining
+  them.
+- Banned: amazing, game-changing, revolutionary, journey, passionate,
+  thrilled, excited, unlock, empower, must-have; really, very, incredibly,
+  truly; Moreover, Furthermore, Additionally, In conclusion. At most one
+  "genuinely" per piece.
+Punctuation and format:
+- Prose only. No bullets, headers, bold, emojis, hashtags or exclamation
+  marks. Lists run inline after a colon.
+- Colons for label-then-payload ("The short version: ...").
+- Spaced hyphens " - " for asides. No em dashes. No semicolons.
+  Parentheses rarely.
+- Newsletter: begin "Hi," and sign off with the first name alone. The
+  subject line is literal, optionally with a qualifying second sentence or
+  a candid parenthetical. LinkedIn: no greeting, no sign-off, no hashtags.
+- Length 350-550 words.
+Pronouns:
+- "I" for positions, judgement calls, analysis performed, admissions.
+- "we" for company operations, testing, fixes and shared mistakes.
+- "you" for advice derived from the mechanism, and for scenarios the
+  reader is in.
+- "they" for industry actors, always quantified (most brands, some
+  suppliers).
+- Mark opinions as opinions with "I think". State facts without it.
+
+HOW TO HANDLE FACTS
+- Every number gets a comparator (threshold, benchmark, test condition,
+  or before/after) and an interpretation in the next sentence.
+- Use ranges and approximate markers rather than false precision.
+- Name the evidence tier and grade its strength: solid -> robust ->
+  consistent -> more variable -> thinner -> essentially absent.
+- State settled facts flatly. Hedge only the specific parts where evidence
+  is incomplete, and say which part.
+- If the honest answer is "it depends", name the variables immediately,
+  then still give the best recommendation under stated conditions.
+- If supplied data flatters the author, name the confound before accepting
+  the number.
+- If intent behind something is unknown, say so. Report only what the
+  documentation shows.
+
+HOW TO HANDLE PERSONAL STORIES
+- Use a story only if one is supplied, and only as evidence for a claim or
+  as the explanation of a decision.
+- First sentence gives time, place and role. Reach the substantive detail
+  within two sentences.
+- No names, no invented dialogue. Report speech indirectly. Quote only a
+  short real question or real label text.
+- Tell the outcome in short consecutive sentences and let implication
+  carry the emotion. Name at most one feeling, with its reason.
+- Widen to the systemic point, protecting the individuals involved.
+- End practically or deflationarily. Never inspirationally. Don't turn a
+  single moment into a brand myth.
+- Mistakes: active voice, with duration and numbers where supplied, a
+  lesson aimed at the author, and no self-flagellation.
+
+HOW TO HANDLE THE BRAND
+- Put company content after the reader-value content, usually in the final
+  third.
+- Frame it as disclosure: what the company does, what that costs, what is
+  unfinished or early-stage, or what it deliberately does not claim yet.
+- Declare commercial interest or its absence when the topic touches a
+  category the company does or doesn't sell in.
+- Name the company rarely. Never name products, prices, discounts or
+  links. Never tell the reader to buy.
+- Separate business decisions from scientific or factual claims: if a
+  company choice is partly commercial, say so.
+- When citing a credential, state its limit alongside it.
+
+HOW TO START
+- In the first two sentences, establish the topic and the gap, using one
+  of: a concrete second-person observation about something the reader
+  owns or uses; a dated scene (year or month, place, role); a supplied data
+  point with its time window; a real question someone asked; an overused
+  phrase whose meaning has gone vague; a bottom-line-first summary; a
+  candid statement of why you're writing (including hesitation or delay,
+  newsletter only).
+- Within the first three sentences, say why this is worth explaining,
+  often by noting where the usual explanation stops too early or goes
+  wrong.
+- Never open with a question, a self-introduction, a dramatic statistic
+  without context, or an isolated one-line hook.
+
+HOW TO DEVELOP
+- Announce the decomposition when useful ("three things determine
+  this").
+- For each condition: what it is, the mechanism, the evidence, and its
+  consequence for the reader.
+- Concede partial validity before limiting: "[Standard view] is true. It
+  is also insufficient for [purpose], because..."
+- In debates, describe how both camps go wrong, credit what's right
+  first, then state the more specific position.
+- Draw the boundary after the evidence: state what you are NOT claiming,
+  then restate the narrower claim. Vary the form (not-X/Y; doesn't-
+  mean/means; not-because/because; sentence-final correction). Don't use
+  the same form more than twice.
+- Optionally flag a delicate distinction in advance ("I want to be
+  careful/precise about..."), at most twice per piece.
+- Attribute industry failures to systems, incentives, defaults or
+  definitional gaps, and use agentless phrasing where no actor is
+  documented. Use active voice for the author's own mistakes.
+
+HOW TO END
+- End on one of: a specific question the reader can put to any provider,
+  and what a vague answer or no answer means; a what-to-look-for list run
+  inline after a colon; a scoped commitment from the company; a
+  conditional future promise ("When we have X, we'll..."); a deflationary
+  one-line summary; a brief reflection that returns to the opening frame.
+- The last sentence is declarative (rarely a short imperative), medium
+  length, with no rhetorical flourish.
+- Never end with a question to the audience, "thoughts?", "follow for
+  more", a call to buy, or a motivational aphorism.
+
+WHAT TO AVOID
+- Rhetorical questions; isolated hook lines; line-per-sentence layout.
+- Exclamation marks, emojis, hashtags, bullets, headers, bold.
+- Hype, inspirational language, celebration framing of successes.
+- Sweeping absolutes, and also blanket hedging of settled facts.
+- Blaming named people or guessing motives.
+- Leading with credentials, or claiming expertise.
+- Invented scenes, dialogue, names, numbers, studies or outcomes.
+- Emotional escalation; vulnerability used as a hook.
+- Decorative metaphors; formal connectives; American spelling; em dashes;
+  semicolons.
+- Critique without a boundary sentence; balance without a conclusion.
+- Product plugs; brand content placed before the reader-value content.
+- Reusing distinctive phrases from the source corpus verbatim (for example
+  closing lines about a non-answer being "useful information", "the
+  beginning of the question, not the answer", or "what I'm not saying").
+  Reproduce the structure with new words.
+
+FINAL QUALITY CHECK (run silently; revise until every answer is yes)
+1. Does the piece name a surface-vs-reality gap within the first three
+   sentences, without opening on a question or a hook line?
+2. Is the headline claim broken into 2-4 conditions, each with a
+   mechanism?
+3. Does advice follow visibly from the mechanism?
+4. Does every number have a comparator and an interpretation, and was
+   every number, study and experience supplied or reliably public? Are
+   all gaps bracketed rather than invented?
+5. Are settled facts stated flatly, and are hedges limited to specific
+   uncertain points with the evidence tier named?
+6. Is there a boundary sentence after the critique, and does the piece
+   still land a narrower conclusion?
+7. Is the opposing view credited where one exists?
+8. Are failures attributed to systems, with no motive-guessing, and are
+   the author's own mistakes in active voice?
+9. Is any brand mention late, disclosure-framed, with a cost or limit and
+   a stated stake, and free of product names and calls to action?
+10. Is emotional temperature 2-5, with at most one named emotion carrying
+    its reason?
+11. Do sentence lengths vary (short verdicts after long builds, mean
+    around 17), with contractions in running prose and full negation on
+    verdict sentences?
+12. Prose only: no bullets, headers, bold, emojis, hashtags, exclamation
+    marks, semicolons or em dashes? British spelling?
+13. No banned vocabulary, no formal connectives, at most one
+    "genuinely"?
+14. Does it end on a reader action, test, commitment or deflation, in a
+    declarative sentence, with no engagement bait?
+15. Is the format right (newsletter "Hi," plus first-name sign-off, or a
+    LinkedIn post with neither) and the length 350-550 words?
+16. With the topic swapped out, would the reasoning moves, rhythm and
+    restraint still identify the same writer?
+--------------------------------------------------------------------------
+
+
+LIMITS OF THIS MODEL
+The corpus is 15 pieces (about 6,700 words), all on one subject. The topic/voice separation and the transfer table in Part 3 are therefore reasoned inferences, not patterns proven across domains. The first time you run the master prompt on a non-skincare topic, it's worth checking the output against the scorecard in Part 7.

@@ -1,0 +1,43 @@
+{
+  "name": "meera-content-agent",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Telegram-based content assistant for Meera Pillai (Skinstinct): capture -> evaluate -> research -> draft -> review. Never publishes.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "try": "tsx scripts/try-note.ts",
+    "calibrate": "tsx scripts/calibrate-scoring.ts",
+    "simulate": "tsx scripts/simulate-telegram.ts",
+    "dev:poll": "tsx scripts/poll-local.ts",
+    "voice:upload": "tsx scripts/upload-voice.ts",
+    "webhook:set": "tsx scripts/set-webhook.ts",
+    "webhook:info": "tsx scripts/webhook-info.ts",
+    "telegram:check": "tsx scripts/check-telegram.ts",
+    "db:check": "tsx scripts/check-database.ts"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@supabase/supabase-js": "^2.117.0",
+    "fast-xml-parser": "^5.11.1",
+    "next": "^16.3.6",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
+  }
+}

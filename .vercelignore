@@ -1,0 +1,13 @@
+# Files the Vercel CLI must never upload when deploying from this folder.
+# Secrets live in Vercel → Settings → Environment Variables, not in files.
+.env
+.env.*
+!.env.example
+
+node_modules
+.next
+.vercel
+.claude
+coverage
+*.log
+*.tsbuildinfo
