@@ -5,7 +5,7 @@ vi.mock('@/lib/database', () => import('./helpers/fakeDatabase'));
 
 import { parseTelegramUpdate, splitMessage } from '@/lib/telegram';
 import { db, resetDatabase } from './helpers/fakeDatabase';
-import { calls, deliver, installFakeServices, sentTexts, TELEGRAM_CHAT_ID, telegramTextUpdate } from './helpers/fakeServices';
+import { calls, deliver, installFakeServices, replies, sentTexts, TELEGRAM_CHAT_ID, telegramTextUpdate } from './helpers/fakeServices';
 
 beforeEach(() => {
   resetDatabase();
@@ -101,7 +101,7 @@ describe('webhook handling of unusual messages', () => {
   });
 
   it('still accepts normal notes posted in a channel', async () => {
-    installFakeServices({ gemini: { scoring: ['{"score": 2, "reason": "Too vague."}'] } });
+    installFakeServices({ gemini: { scoring: [replies.weakScore] } });
     await deliver({
       update_id: 73,
       channel_post: { message_id: 73, date: 1_700_000_000, chat: { id: -1001234567890, type: 'channel' }, text: 'sunscreen post?' },
@@ -112,7 +112,7 @@ describe('webhook handling of unusual messages', () => {
 
   it('accepts chats that are on the allow-list', async () => {
     process.env.TELEGRAM_ALLOWED_CHAT_IDS = `999,${TELEGRAM_CHAT_ID}`;
-    installFakeServices({ gemini: { scoring: ['{"score": 2, "reason": "Too vague."}'] } });
+    installFakeServices({ gemini: { scoring: [replies.weakScore] } });
     await deliver(telegramTextUpdate('sunscreen post?'));
     expect(db.notes).toHaveLength(1);
   });

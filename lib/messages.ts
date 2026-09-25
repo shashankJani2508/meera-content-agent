@@ -50,10 +50,12 @@ function draftLabel(draft: Pick<DraftRow, 'id' | 'draft_text'>): string {
 
 const CRITERION_LABELS: Record<string, string> = { idea: 'Idea', specificity: 'Specificity', fit: 'Fit' };
 
-/** The per-criterion score breakdown, as bullet lines. Empty string if there's nothing to show. */
+/** The per-criterion score breakdown, as bullet lines with the marks that add up to the total. Empty string if there's nothing to show. */
 function formatScoreBreakdown(breakdown: ScoreBreakdownItem[]): string {
   if (breakdown.length === 0) return '';
-  return breakdown.map((item) => `- ${CRITERION_LABELS[item.criterion] ?? item.criterion}: ${item.verdict}`).join('\n');
+  return breakdown
+    .map((item) => `- ${CRITERION_LABELS[item.criterion] ?? item.criterion} (${item.marks}/${item.maxMarks}): ${item.verdict}`)
+    .join('\n');
 }
 
 /** Internal-sounding reasons that mean "something failed", not a real relevance verdict - not worth showing to Meera. */

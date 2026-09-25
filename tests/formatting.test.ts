@@ -4,7 +4,7 @@ import * as messages from '@/lib/messages';
 import { newsVerificationBlock } from '@/lib/messages';
 import type { DraftRow } from '@/lib/types';
 import { redact } from '@/lib/logger';
-import { applyMechanicalFixes, checkDraftStyle, findPlaceholders } from '@/lib/styleCheck';
+import { applyMechanicalFixes, checkDraftStyle, findPlaceholders, removePlaceholderParagraphs } from '@/lib/styleCheck';
 import { readVoiceFile } from '@/lib/voice';
 import { separateNewsMarker } from '@/lib/stages/writeDraft';
 import { SAMPLE_DRAFT } from './helpers/fakeServices';
@@ -134,6 +134,27 @@ describe('style check', () => {
 
   it('finds placeholders left for Meera', () => {
     expect(findPlaceholders('We saw [DATA NEEDED: return rate] and [VERIFY: pH 3.5 threshold].')).toHaveLength(2);
+  });
+});
+
+describe('removePlaceholderParagraphs', () => {
+  it('drops the whole paragraph a placeholder sits in, including a dangling follow-up sentence in the same paragraph', () => {
+    const text = [
+      'First paragraph, no placeholder here.',
+      'At Skinstinct, we [COMPANY PRACTICE NEEDED: how we handle this]. We do this because it matters.',
+      'Final paragraph, also clean.',
+    ].join('\n\n');
+    expect(removePlaceholderParagraphs(text)).toBe('First paragraph, no placeholder here.\n\nFinal paragraph, also clean.');
+  });
+
+  it('drops multiple placeholder paragraphs and leaves everything else untouched', () => {
+    const text = ['Clean one.', '[DATA NEEDED: return rate]', 'Clean two.', '[VERIFY: pH 3.5 threshold]', 'Clean three.'].join('\n\n');
+    expect(removePlaceholderParagraphs(text)).toBe('Clean one.\n\nClean two.\n\nClean three.');
+  });
+
+  it('leaves text with no placeholder completely unchanged', () => {
+    const text = 'Paragraph one.\n\nParagraph two.';
+    expect(removePlaceholderParagraphs(text)).toBe(text);
   });
 });
 

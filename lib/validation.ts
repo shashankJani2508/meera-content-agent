@@ -5,7 +5,7 @@
  * (which is fed back to the model on the one retry).
  */
 import type { KeywordResult, RelevanceResult, ScoreBreakdownItem, ScoreResult } from './types';
-import { SCORE_CRITERIA } from '../prompts/scoring';
+import { SCORE_CRITERIA, SCORE_CRITERION_MAX } from '../prompts/scoring';
 
 export type Validated<T> = { ok: true; value: T } | { ok: false; error: string };
 
@@ -50,37 +50,51 @@ export function parseModelJson(text: string): Validated<unknown> {
 }
 
 /**
- * The breakdown explains the score but never gates it: a missing or malformed
- * breakdown just means the Telegram message shows the score and reason alone,
- * not a wasted retry over a decorative field.
+ * There is no separate "score" field to trust: the score is always computed
+ * as the sum of the three criteria's marks, so it can never disagree with the
+ * breakdown shown to Meera. A missing, out-of-range or incomplete breakdown
+ * fails validation (same one-retry path as a bad "reason") rather than being
+ * silently dropped - it's load-bearing, not decorative.
  */
-function parseScoreBreakdown(value: unknown): ScoreBreakdownItem[] {
-  if (!Array.isArray(value)) return [];
-  const byCriterion = new Map<string, string>();
+function parseScoreBreakdown(value: unknown): Validated<ScoreBreakdownItem[]> {
+  if (!Array.isArray(value)) {
+    return invalid(`"breakdown" must be an array with one entry for each of: ${SCORE_CRITERIA.join(', ')}`);
+  }
+  const byCriterion = new Map<string, { marks: number; verdict: string }>();
   for (const entry of value) {
     if (!isPlainObject(entry)) continue;
     const criterion = typeof entry.criterion === 'string' ? entry.criterion.trim().toLowerCase() : null;
+    if (!criterion || !(criterion in SCORE_CRITERION_MAX)) continue;
+    const max = SCORE_CRITERION_MAX[criterion as keyof typeof SCORE_CRITERION_MAX];
+    const { marks } = entry;
+    if (typeof marks !== 'number' || !Number.isInteger(marks) || marks < 0 || marks > max) continue;
     const verdict = cleanString(entry.verdict, 80);
-    if (criterion && verdict && SCORE_CRITERIA.includes(criterion as (typeof SCORE_CRITERIA)[number])) {
-      byCriterion.set(criterion, verdict);
-    }
+    if (!verdict) continue;
+    byCriterion.set(criterion, { marks, verdict });
   }
-  // Keep the fixed order (idea, specificity, fit) regardless of what order the model returned them in.
-  return SCORE_CRITERIA.filter((criterion) => byCriterion.has(criterion)).map((criterion) => ({
-    criterion,
-    verdict: byCriterion.get(criterion)!,
-  }));
+  if (byCriterion.size !== SCORE_CRITERIA.length) {
+    return invalid(
+      `"breakdown" must have a whole-number "marks" (within its 0-max range) and a "verdict" for each of: ${SCORE_CRITERIA.map((c) => `${c} (0-${SCORE_CRITERION_MAX[c]})`).join(', ')}`,
+    );
+  }
+  return valid(
+    SCORE_CRITERIA.map((criterion) => ({
+      criterion,
+      marks: byCriterion.get(criterion)!.marks,
+      maxMarks: SCORE_CRITERION_MAX[criterion],
+      verdict: byCriterion.get(criterion)!.verdict,
+    })),
+  );
 }
 
 export function validateScoreResult(value: unknown): Validated<ScoreResult> {
   if (!isPlainObject(value)) return invalid('expected a JSON object');
-  const { score } = value;
-  if (typeof score !== 'number' || !Number.isInteger(score) || score < 0 || score > 10) {
-    return invalid('"score" must be a whole number from 0 to 10');
-  }
   const reason = cleanString(value.reason, 300);
   if (!reason) return invalid('"reason" must be a non-empty string');
-  return valid({ score, reason, breakdown: parseScoreBreakdown(value.breakdown) });
+  const breakdown = parseScoreBreakdown(value.breakdown);
+  if (!breakdown.ok) return breakdown;
+  const score = breakdown.value.reduce((sum, item) => sum + item.marks, 0);
+  return valid({ score, reason, breakdown: breakdown.value });
 }
 
 export function validateKeywordResult(value: unknown): Validated<KeywordResult> {

@@ -11,7 +11,7 @@ import { getAiConfig } from '../config';
 import { AiOutputError } from '../errors';
 import { callGemini } from '../gemini';
 import { log } from '../logger';
-import { applyMechanicalFixes, checkDraftStyle, findPlaceholders } from '../styleCheck';
+import { applyMechanicalFixes, checkDraftStyle, findPlaceholders, removePlaceholderParagraphs } from '../styleCheck';
 import type { NewsArticle, VoiceProfile } from '../types';
 import { countWords, validateDraftText } from '../validation';
 import { buildDraftingPrompt, buildDraftRetryReminder, NEWS_MARKER_PATTERN } from '../../prompts/drafting';
@@ -86,14 +86,23 @@ export async function writeDraft(input: DraftInput): Promise<DraftResult> {
     modelUsed = config.geminiModel;
   }
 
-  const text = applyMechanicalFixes(draft.text);
+  // The prompt tells the model never to leave a bracketed placeholder in the
+  // post - if one slips through anyway, drop the paragraph it's in so the
+  // delivered draft is always complete and ready to paste into LinkedIn.
+  const withoutPlaceholders = removePlaceholderParagraphs(applyMechanicalFixes(draft.text));
+  const remaining = findPlaceholders(withoutPlaceholders);
+  if (remaining.length > 0) {
+    // Should be rare - e.g. a placeholder that shares a paragraph with content worth keeping.
+    log.warn('DRAFTING', 'A placeholder survived paragraph removal - shown to Meera as a safety net', { count: remaining.length });
+  }
+  const text = withoutPlaceholders;
   const result: DraftResult = {
     text,
     wordCount: countWords(text),
     modelUsed,
     newsUsed: draft.newsUsed,
     styleWarnings: checkDraftStyle(text),
-    placeholders: findPlaceholders(text),
+    placeholders: remaining,
   };
   log.info('DRAFTING', 'Draft created', {
     model: modelUsed,

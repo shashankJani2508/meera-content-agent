@@ -142,22 +142,23 @@ export const STRONG_NOTE =
   "Everyone talks about 10% niacinamide, but the percentage on the label isn't enough to tell you whether the formulation will actually perform.";
 export const WEAK_NOTE = 'Call supplier tomorrow.';
 
+// The score is always computed as the sum of the breakdown's marks (see
+// lib/validation.ts) - there is no separate "score" field to fake. These two
+// match the scoring prompt's own worked examples exactly, so the fixture and
+// the prompt can never silently drift apart.
 export const replies = {
-  // Deliberately no "breakdown" field here, so most tests exercise the
-  // graceful-degradation path: a missing breakdown still validates fine.
-  strongScore: '{"score": 8, "reason": "A specific gap between a label number and real performance."}',
-  weakScore: '{"score": 1, "reason": "A to-do reminder with no idea to develop."}',
-  // With a full breakdown, for the tests that check it's parsed and shown.
-  strongScoreWithBreakdown:
-    '{"score": 8, "reason": "A specific gap between a label number and real performance.", "breakdown": [' +
-    '{"criterion": "idea", "verdict": "Sharp label-vs-performance gap"}, ' +
-    '{"criterion": "specificity", "verdict": "Names the exact ingredient and number"}, ' +
-    '{"criterion": "fit", "verdict": "Right in her formulation expertise"}]}',
-  weakScoreWithBreakdown:
-    '{"score": 1, "reason": "A to-do reminder with no idea to develop.", "breakdown": [' +
-    '{"criterion": "idea", "verdict": "No idea, just a logistics task"}, ' +
-    '{"criterion": "specificity", "verdict": "Nothing to anchor a post to"}, ' +
-    '{"criterion": "fit", "verdict": "Not a content topic at all"}]}',
+  // idea 4 + specificity 2 + fit 2 = 8
+  strongScore:
+    '{"reason": "A specific gap between a label number and real performance, squarely in her formulation expertise.", "breakdown": [' +
+    '{"criterion": "idea", "marks": 4, "verdict": "Sharp label-vs-performance gap"}, ' +
+    '{"criterion": "specificity", "marks": 2, "verdict": "Names the exact ingredient and number"}, ' +
+    '{"criterion": "fit", "marks": 2, "verdict": "Right in her formulation expertise"}]}',
+  // idea 0 + specificity 0 + fit 0 = 0
+  weakScore:
+    '{"reason": "A to-do reminder with no idea to develop.", "breakdown": [' +
+    '{"criterion": "idea", "marks": 0, "verdict": "No idea, just a logistics task"}, ' +
+    '{"criterion": "specificity", "marks": 0, "verdict": "Nothing to anchor a post to"}, ' +
+    '{"criterion": "fit", "marks": 0, "verdict": "Not a content topic at all"}]}',
   keywords: '{"keywords": ["niacinamide", "label claims", "formulation"], "search_query": "niacinamide label claims"}',
   notRelevant: '{"relevant": false, "article_number": null, "reason": "Same industry, but not about the note\'s point."}',
   relevantFirst: '{"relevant": true, "article_number": 1, "reason": "Directly about how label percentages mislead buyers."}',

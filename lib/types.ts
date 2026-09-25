@@ -83,16 +83,23 @@ export interface NewsArticle {
   summary: string;
 }
 
-/** One line of the score breakdown, e.g. {criterion: "Idea", verdict: "Clear, specific gap named"}. */
+/**
+ * One line of the score breakdown, e.g. {criterion: "idea", marks: 4, maxMarks: 5, verdict: "..."}.
+ * `score` on ScoreResult is always the sum of these marks - never a separate,
+ * independently-asserted number - so the total and the breakdown can never disagree.
+ */
 export interface ScoreBreakdownItem {
   criterion: string;
+  marks: number;
+  maxMarks: number;
   verdict: string;
 }
 
 export interface ScoreResult {
+  /** Always equal to the sum of breakdown[].marks. */
   score: number;
   reason: string;
-  /** Why it scored this way, one line per judging criterion. Empty if the model didn't return one usable. */
+  /** One entry per fixed criterion (idea, specificity, fit), in that order. */
   breakdown: ScoreBreakdownItem[];
 }
 

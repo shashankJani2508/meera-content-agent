@@ -33,7 +33,7 @@ console.log(note);
 const score = await scoreNote(note);
 section('SCORE');
 console.log(`${score.score}/10 - ${score.reason}`);
-for (const item of score.breakdown) console.log(`  ${item.criterion}: ${item.verdict}`);
+for (const item of score.breakdown) console.log(`  ${item.criterion} (${item.marks}/${item.maxMarks}): ${item.verdict}`);
 if (score.score < NOTE_SCORE_THRESHOLD) {
   section('RESULT');
   console.log(messages.noteRejected(score.score, score.reason, score.breakdown));

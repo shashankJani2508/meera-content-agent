@@ -79,7 +79,32 @@ export function checkDraftStyle(text: string): string[] {
   return warnings;
 }
 
-/** Bracketed gaps the drafting model left for Meera, e.g. [DATA NEEDED: ...]. */
+const PLACEHOLDER_SOURCE = '\\[(?:DATA NEEDED|EXPERIENCE NEEDED|COMPANY PRACTICE NEEDED|VERIFY)[^\\]]*\\]';
+const PLACEHOLDER_PATTERN_GLOBAL = new RegExp(PLACEHOLDER_SOURCE, 'gi');
+const PLACEHOLDER_PATTERN_TEST = new RegExp(PLACEHOLDER_SOURCE, 'i');
+
+/** Bracketed gaps the drafting model left for Meera, e.g. [DATA NEEDED: ...]. Should be rare - see removePlaceholderParagraphs below. */
 export function findPlaceholders(text: string): string[] {
-  return text.match(/\[(?:DATA NEEDED|EXPERIENCE NEEDED|COMPANY PRACTICE NEEDED|VERIFY)[^\]]*\]/gi) ?? [];
+  return text.match(PLACEHOLDER_PATTERN_GLOBAL) ?? [];
+}
+
+/**
+ * The drafting prompt now tells the model to omit a paragraph entirely
+ * rather than leave a bracketed placeholder in it, so the delivered post is
+ * always complete and ready to paste into LinkedIn. This is the safety net
+ * for the rare case one slips through anyway: it drops the whole paragraph
+ * containing the placeholder, not just the one sentence, because a
+ * placeholder paragraph is - by the Voice Skill's own "one job per
+ * paragraph" rule - a self-contained disclosure with nothing else worth
+ * keeping, and any sentence right after it (e.g. "We do this because...")
+ * usually refers back to what the placeholder would have said and would
+ * otherwise be left dangling. Never invents anything - only ever removes.
+ */
+export function removePlaceholderParagraphs(text: string): string {
+  if (!PLACEHOLDER_PATTERN_TEST.test(text)) return text;
+  return text
+    .split(/\n{2,}/)
+    .filter((paragraph) => !PLACEHOLDER_PATTERN_TEST.test(paragraph))
+    .join('\n\n')
+    .trim();
 }

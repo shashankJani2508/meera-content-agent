@@ -21,60 +21,63 @@ describe('parseModelJson', () => {
 });
 
 describe('validateScoreResult', () => {
-  it('accepts a whole number 0-10 with a reason, defaulting to an empty breakdown', () => {
-    expect(validateScoreResult({ score: 0, reason: 'A reminder.' })).toEqual({ ok: true, value: { score: 0, reason: 'A reminder.', breakdown: [] } });
-    expect(validateScoreResult({ score: 10, reason: ' Sharp.  ' })).toEqual({
-      ok: true,
-      value: { score: 10, reason: 'Sharp.', breakdown: [] },
-    });
-  });
+  // There is no "score" field to send any more - it's always the sum of the
+  // three criteria's marks, so the number and the breakdown can never disagree.
+  const fullBreakdown = [
+    { criterion: 'idea', marks: 4, verdict: 'Clear, specific gap' },
+    { criterion: 'specificity', marks: 2, verdict: 'Names an exact number' },
+    { criterion: 'fit', marks: 2, verdict: 'Right in her territory' },
+  ];
 
-  it('parses a valid breakdown, in the fixed idea/specificity/fit order regardless of input order', () => {
+  it('computes the score as the sum of the marks, in the fixed idea/specificity/fit order regardless of input order', () => {
     const result = validateScoreResult({
-      score: 8,
       reason: 'Strong.',
-      breakdown: [
-        { criterion: 'fit', verdict: 'Right in her territory' },
-        { criterion: 'idea', verdict: 'Clear, specific gap' },
-        { criterion: 'specificity', verdict: 'Names an exact number' },
-      ],
+      breakdown: [fullBreakdown[2], fullBreakdown[0], fullBreakdown[1]], // shuffled on purpose
     });
     expect(result).toEqual({
       ok: true,
       value: {
-        score: 8,
+        score: 8, // 4 + 2 + 2
         reason: 'Strong.',
         breakdown: [
-          { criterion: 'idea', verdict: 'Clear, specific gap' },
-          { criterion: 'specificity', verdict: 'Names an exact number' },
-          { criterion: 'fit', verdict: 'Right in her territory' },
+          { criterion: 'idea', marks: 4, maxMarks: 5, verdict: 'Clear, specific gap' },
+          { criterion: 'specificity', marks: 2, maxMarks: 3, verdict: 'Names an exact number' },
+          { criterion: 'fit', marks: 2, maxMarks: 2, verdict: 'Right in her territory' },
         ],
       },
     });
   });
 
-  it('never fails validation over a malformed breakdown - the score and reason still pass', () => {
-    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: 'not an array' })).toEqual({
-      ok: true,
-      value: { score: 7, reason: 'x', breakdown: [] },
+  it('accepts the extremes: all-zero and all-max marks', () => {
+    const zeroed = validateScoreResult({
+      reason: 'x',
+      breakdown: [{ criterion: 'idea', marks: 0, verdict: 'a' }, { criterion: 'specificity', marks: 0, verdict: 'b' }, { criterion: 'fit', marks: 0, verdict: 'c' }],
     });
-    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: [{ criterion: 'made_up', verdict: 'irrelevant' }] })).toEqual({
-      ok: true,
-      value: { score: 7, reason: 'x', breakdown: [] },
+    expect(zeroed.ok && zeroed.value.score).toBe(0);
+
+    const maxed = validateScoreResult({
+      reason: 'x',
+      breakdown: [{ criterion: 'idea', marks: 5, verdict: 'a' }, { criterion: 'specificity', marks: 3, verdict: 'b' }, { criterion: 'fit', marks: 2, verdict: 'c' }],
     });
-    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: [{ criterion: 'idea' }] })).toEqual({
-      ok: true,
-      value: { score: 7, reason: 'x', breakdown: [] },
-    });
+    expect(maxed.ok && maxed.value.score).toBe(10);
   });
 
   it.each([
-    [{ score: 11, reason: 'x' }],
-    [{ score: -1, reason: 'x' }],
-    [{ score: 7.5, reason: 'x' }],
-    [{ score: '8', reason: 'x' }],
-    [{ score: 8 }],
-    [{ score: 8, reason: '' }],
+    ['a missing criterion', [fullBreakdown[0], fullBreakdown[1]]],
+    ['an unknown criterion', [{ criterion: 'tone', marks: 3, verdict: 'x' }, fullBreakdown[1], fullBreakdown[2]]],
+    ['marks above the criterion\'s max', [{ criterion: 'idea', marks: 9, verdict: 'x' }, fullBreakdown[1], fullBreakdown[2]]],
+    ['negative marks', [{ criterion: 'idea', marks: -1, verdict: 'x' }, fullBreakdown[1], fullBreakdown[2]]],
+    ['non-integer marks', [{ criterion: 'idea', marks: 2.5, verdict: 'x' }, fullBreakdown[1], fullBreakdown[2]]],
+    ['a missing verdict', [{ criterion: 'idea', marks: 4 }, fullBreakdown[1], fullBreakdown[2]]],
+    ['breakdown not an array', 'not an array'],
+    ['breakdown missing entirely', undefined],
+  ])('rejects %s - the score can never be computed from it', (_label, breakdown) => {
+    expect(validateScoreResult({ reason: 'x', breakdown }).ok).toBe(false);
+  });
+
+  it.each([
+    [{ reason: '', breakdown: fullBreakdown }],
+    [{ breakdown: fullBreakdown }],
     [[8, 'reason']],
     [null],
   ])('rejects %j', (value) => {

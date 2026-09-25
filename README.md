@@ -99,7 +99,7 @@ These rules are built into the code, not just the prompts:
 │   ├── webhookHandler.ts        Routes each Telegram update: command, note, or ignore.
 │   ├── pipeline.ts              The note pipeline - calls each stage in order, records status.
 │   ├── stages/
-│   │   ├── scoreNote.ts         Stage 1: score 0-10 + reason.
+│   │   ├── scoreNote.ts         Stage 1: marks per criterion (idea/specificity/fit), summed into the score, + reason.
 │   │   ├── extractKeywords.ts   Stage 2: 3-5 keywords + a search query.
 │   │   ├── checkNewsRelevance.ts Stage 4: is any article genuinely relevant?
 │   │   ├── findNewsAngle.ts     Stages 2-4 together; never throws (news is optional).
@@ -346,10 +346,11 @@ Commands must be the whole message: "Reject the new supplier's quote" is treated
 
 **In the draft message**
 
-- `Score 8/10 · 432 words · drafted by claude-opus-5` - which model wrote it matters when you're comparing.
-- `NEWS SOURCE … ⚠ Check this before publishing` - open the link and check the claim before you approve.
-- `TO FILL IN: 2 bracketed placeholders` - the draft needs a fact only you have (e.g. `[COMPANY PRACTICE NEEDED: …]`).
+- `Score 8/10 · 432 words · drafted by claude-opus-5`, with a 3-line breakdown underneath - `Idea (4/5)`, `Specificity (2/3)`, `Fit (2/2)` - one short verdict per criterion. The three always add up to the score: nothing is asserted separately from what's shown.
+- `NEWS SOURCE … ⚠ Check this before publishing` - only when a genuinely relevant article was found; open the link and check the claim before you approve. If a search ran but nothing qualified, a short `News: searched "…" - …` line says so, so "no source" reads as "checked, nothing fit" rather than looking skipped.
 - `STYLE CHECK: …` - something her own writing never does (an exclamation mark, a hashtag, US spelling…). Fix it when editing.
+
+Drafts never contain a bracketed gap like `[COMPANY PRACTICE NEEDED: …]` for you to fill in - the drafting prompt is instructed to leave that idea or paragraph out entirely rather than gesture at a fact it doesn't have, so what arrives is a complete, ready-to-paste post.
 
 **Command-line helpers**
 
@@ -370,7 +371,7 @@ Commands must be the whole message: "Reject the new supplier's quote" is treated
 ## Changing behaviour without touching code
 
 - **Her voice:** edit `voice-skill.txt`, then `npm run voice:upload`. Or edit the active row in Supabase's `voice_skill` table directly. Takes effect on the next draft - no redeploy. Old versions are kept, and each draft records which version wrote it (`voice_skill_version`).
-- **What counts as a strong note:** `prompts/scoring.ts` (the scale and the examples). Check the result with `npm run calibrate`. The threshold (6) is `NOTE_SCORE_THRESHOLD` in `lib/config.ts`.
+- **What counts as a strong note:** `prompts/scoring.ts` - the score is never asserted directly by the model; it's the sum of three marks (idea 0-5, specificity 0-3, fit 0-2) the model gives against fixed rubric bands, so the marks and the total can't disagree. Check the result with `npm run calibrate`. The threshold (6) is `NOTE_SCORE_THRESHOLD` in `lib/config.ts`.
 - **What counts as relevant news:** `prompts/newsRelevance.ts`.
 - **Draft rules (facts, format):** `prompts/drafting.ts`. Style belongs in the Voice Skill, not here.
 - **The bot's wording:** `lib/messages.ts`.
@@ -414,7 +415,7 @@ Vercel → Project → **Logs** (or the `npm run dev` terminal). Every line is p
 ```
 [WEBHOOK] Message received {"chatId":…,"messageId":42,"type":"text"}
 [DATABASE] Note saved {"noteId":17}
-[SCORING] Note scored {"score":8,"reason":"…"}
+[SCORING] Note scored {"score":8,"reason":"…","marks":"idea:4/5 specificity:2/3 fit:2/2"}
 [SCORING] Decision: develop {"noteId":17,"score":8,"threshold":6}
 [KEYWORDS] Search terms extracted {"keywords":[…],"searchQuery":"…"}
 [NEWS] News search finished {"results":6,"topHeadline":"…"}

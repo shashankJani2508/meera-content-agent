@@ -54,20 +54,22 @@ describe('Test 1 - strong note', () => {
     expect(draftMessage).not.toContain('NEWS SOURCE');
   });
 
-  it('shows the score breakdown alongside the number, and degrades gracefully when the model omits it', async () => {
+  it('shows the score breakdown with marks that add up to the total', async () => {
     installFakeServices({
       gemini: {
-        scoring: [replies.strongScoreWithBreakdown],
+        scoring: [replies.strongScore],
         keywords: [replies.keywords],
         relevance: [replies.notRelevant],
         drafting: [SAMPLE_DRAFT],
       },
     });
     await deliver(telegramTextUpdate(STRONG_NOTE));
+    expect(db.notes[0].score).toBe(8); // 4 + 2 + 2, computed - never asserted separately by the model
     const message = sentTexts().find((t) => t.startsWith('DRAFT READY'))!;
-    expect(message).toContain('- Idea: Sharp label-vs-performance gap');
-    expect(message).toContain('- Specificity: Names the exact ingredient and number');
-    expect(message).toContain('- Fit: Right in her formulation expertise');
+    expect(message).toContain('Score 8/10');
+    expect(message).toContain('- Idea (4/5): Sharp label-vs-performance gap');
+    expect(message).toContain('- Specificity (2/3): Names the exact ingredient and number');
+    expect(message).toContain('- Fit (2/2): Right in her formulation expertise');
   });
 
   it('sends the stored Voice Skill to the drafting model', async () => {
@@ -88,23 +90,24 @@ describe('Test 2 - weak note', () => {
 
     await deliver(telegramTextUpdate(WEAK_NOTE));
 
-    expect(db.notes[0]).toMatchObject({ status: 'rejected', score: 1 });
+    expect(db.notes[0]).toMatchObject({ status: 'rejected', score: 0 }); // 0 + 0 + 0, computed
     expect(db.drafts).toHaveLength(0);
     expect(calls.gemini.map((c) => c.task)).toEqual(['scoring']); // no keywords, news or drafting
     expect(calls.news).toHaveLength(0);
     const [message] = sentTexts();
     expect(message).toContain("This one isn't strong enough to develop into a post yet.");
+    expect(message).toContain('Score: 0/10');
     expect(message).toContain('Reason: A to-do reminder with no idea to develop.');
     expect(message).toContain("I've saved the note, but I haven't drafted it.");
   });
 
   it('shows the score breakdown on a rejected note too', async () => {
-    installFakeServices({ gemini: { scoring: [replies.weakScoreWithBreakdown] } });
+    installFakeServices({ gemini: { scoring: [replies.weakScore] } });
     await deliver(telegramTextUpdate(WEAK_NOTE));
     const [message] = sentTexts();
-    expect(message).toContain('- Idea: No idea, just a logistics task');
-    expect(message).toContain('- Specificity: Nothing to anchor a post to');
-    expect(message).toContain('- Fit: Not a content topic at all');
+    expect(message).toContain('- Idea (0/5): No idea, just a logistics task');
+    expect(message).toContain('- Specificity (0/3): Nothing to anchor a post to');
+    expect(message).toContain('- Fit (0/2): Not a content topic at all');
   });
 });
 
@@ -240,8 +243,17 @@ describe('Test 7 - malformed AI response', () => {
     expect(db.notes[0]).toMatchObject({ score: 8, status: 'drafted' });
   });
 
-  it('rejects out-of-range scores as invalid', async () => {
-    installFakeServices({ gemini: { scoring: ['{"score": 14, "reason": "Great"}', '{"score": 7.5, "reason": "Good"}'] } });
+  it('rejects an incomplete or out-of-range score breakdown as invalid', async () => {
+    installFakeServices({
+      gemini: {
+        // Attempt 1: only one of the three required criteria.
+        // Attempt 2 (retry): all three present, but "idea" exceeds its 0-5 max.
+        scoring: [
+          '{"reason": "Great", "breakdown": [{"criterion": "idea", "marks": 5, "verdict": "x"}]}',
+          '{"reason": "Good", "breakdown": [{"criterion": "idea", "marks": 9, "verdict": "x"}, {"criterion": "specificity", "marks": 1, "verdict": "y"}, {"criterion": "fit", "marks": 1, "verdict": "z"}]}',
+        ],
+      },
+    });
     await deliver(telegramTextUpdate(STRONG_NOTE));
     expect(db.notes[0].status).toBe('error');
     expect(db.notes[0].score).toBeNull();
@@ -339,5 +351,34 @@ describe('Other failures', () => {
     await deliver(telegramTextUpdate('APPROVE'));
     // The only outbound calls are Gemini, Google News and Telegram - fakeServices throws on anything else.
     expect(calls.telegram.every((c) => ['sendMessage', 'sendChatAction'].includes(c.method))).toBe(true);
+  });
+});
+
+describe('ready-to-use drafts (no leftover placeholders)', () => {
+  it('drops the whole paragraph if the model leaves a placeholder in it - the delivered draft has no bracket text and no "TO FILL IN" line', async () => {
+    const draftWithPlaceholder = [
+      SAMPLE_DRAFT,
+      'At Skinstinct, we [COMPANY PRACTICE NEEDED: how we handle this]. We do this because it matters to customers.',
+    ].join('\n\n');
+    installFakeServices({
+      gemini: { scoring: [replies.strongScore], keywords: [replies.keywords], relevance: [replies.notRelevant], drafting: [draftWithPlaceholder] },
+    });
+
+    await deliver(telegramTextUpdate(STRONG_NOTE));
+
+    expect(db.drafts[0].draft_text).not.toContain('[COMPANY PRACTICE NEEDED');
+    expect(db.drafts[0].draft_text).not.toContain('We do this because it matters to customers');
+    expect(db.drafts[0].draft_text).toContain(SAMPLE_DRAFT.split('\n\n')[0]); // the rest of the post survives intact
+    const message = sentTexts().find((t) => t.startsWith('DRAFT READY'))!;
+    expect(message).not.toContain('[COMPANY PRACTICE NEEDED');
+    expect(message).not.toContain('TO FILL IN');
+  });
+
+  it('leaves a normal draft (no placeholder) completely untouched', async () => {
+    installFakeServices({
+      gemini: { scoring: [replies.strongScore], keywords: [replies.keywords], relevance: [replies.notRelevant], drafting: [SAMPLE_DRAFT] },
+    });
+    await deliver(telegramTextUpdate(STRONG_NOTE));
+    expect(db.drafts[0].draft_text).toBe(SAMPLE_DRAFT);
   });
 });
