@@ -37,7 +37,7 @@ describe('loop guard prefixes', () => {
       messages.draftReady({ draftId: 1, draftText: 'x', score: 8, wordCount: 400, modelLabel: 'm', article: null, placeholders: [], styleWarnings: [] }),
       messages.noteRejected(2, 'reason'),
       messages.approved(draft, 0),
-      messages.approvedCopy('text'),
+      messages.approvedCopy({ draft_text: 'text', news_used: false, news_source: null, news_date: null, news_url: null }),
       messages.rejected(draft, 1),
       messages.noPendingDraft('approve'),
       messages.draftNotFound(9),

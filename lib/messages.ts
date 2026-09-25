@@ -118,9 +118,19 @@ export function approved(draft: DraftRow, stillPending: number): string {
   return lines.join('\n\n');
 }
 
-/** Sent right after approval: the clean post text, ready to paste into LinkedIn. */
-export function approvedCopy(draftText: string): string {
-  return `Copy-ready text:\n\n${draftText}`;
+/**
+ * Sent right after approval: the clean post text, ready to paste into LinkedIn.
+ * When the draft used a news item, a short, publishable source line is appended
+ * to the post itself - not the "⚠ check this" warning block from draftReady,
+ * which is for Meera only and must never go out under her name.
+ */
+export function approvedCopy(draft: Pick<DraftRow, 'draft_text' | 'news_used' | 'news_source' | 'news_date' | 'news_url'>): string {
+  let text = draft.draft_text;
+  if (draft.news_used && draft.news_source && draft.news_url) {
+    const date = draft.news_date ? `, ${formatNewsDate(draft.news_date)}` : '';
+    text += `\n\n(Source: ${draft.news_source}${date} - ${draft.news_url})`;
+  }
+  return `Copy-ready text:\n\n${text}`;
 }
 
 export function rejected(draft: DraftRow, stillPending: number): string {

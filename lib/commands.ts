@@ -95,7 +95,7 @@ export async function handleCommand(message: IncomingMessage, command: Command):
   if (decision === 'approved') {
     await sendMessageSafely(chatId, messages.approved(updated, stillPending), { replyToMessageId: message.messageId });
     // A clean copy of the post, ready to paste into LinkedIn by hand.
-    await sendMessage(chatId, messages.approvedCopy(updated.draft_text)).catch((error) =>
+    await sendMessage(chatId, messages.approvedCopy(updated)).catch((error) =>
       log.error('TELEGRAM', 'Could not send copy-ready text', error, { draftId: updated.id }),
     );
   } else {

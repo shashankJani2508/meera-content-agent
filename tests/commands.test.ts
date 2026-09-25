@@ -5,7 +5,17 @@ vi.mock('@/lib/database', () => import('./helpers/fakeDatabase'));
 
 import { parseCommand } from '@/lib/commands';
 import { db, resetDatabase } from './helpers/fakeDatabase';
-import { calls, deliver, installFakeServices, replies, SAMPLE_DRAFT, sentTexts, STRONG_NOTE, telegramTextUpdate } from './helpers/fakeServices';
+import {
+  calls,
+  deliver,
+  installFakeServices,
+  replies,
+  rssFeed,
+  SAMPLE_DRAFT,
+  sentTexts,
+  STRONG_NOTE,
+  telegramTextUpdate,
+} from './helpers/fakeServices';
 
 async function createPendingDraft() {
   installFakeServices({
@@ -13,6 +23,21 @@ async function createPendingDraft() {
   });
   await deliver(telegramTextUpdate(STRONG_NOTE));
   expect(db.drafts.at(-1)?.status).toBe('pending');
+  calls.telegram = [];
+}
+
+async function createPendingDraftWithNews() {
+  installFakeServices({
+    gemini: {
+      scoring: [replies.strongScore],
+      keywords: [replies.keywords],
+      relevance: [replies.relevantFirst],
+      drafting: [`${SAMPLE_DRAFT}\n\nNEWS_USED: YES`],
+    },
+    news: { xml: rssFeed([{ title: 'Regulator questions skincare percentage claims on labels', source: 'Business Standard', daysAgo: 3 }]) },
+  });
+  await deliver(telegramTextUpdate(STRONG_NOTE));
+  expect(db.drafts.at(-1)).toMatchObject({ status: 'pending', news_used: true });
   calls.telegram = [];
 }
 
@@ -63,6 +88,26 @@ describe('Test 4 - APPROVE', () => {
     await deliver(telegramTextUpdate('APPROVE 1'));
     expect(db.drafts[0].status).toBe('rejected');
     expect(sentTexts().at(-1)).toBe("Draft #1 is already rejected. I haven't changed it.");
+  });
+
+  it('includes the news source in the copy-ready text, not just the initial draft message', async () => {
+    await createPendingDraftWithNews();
+
+    await deliver(telegramTextUpdate('APPROVE'));
+
+    const copyText = sentTexts().find((t) => t.startsWith('Copy-ready text:'))!;
+    expect(copyText).toContain('(Source: Business Standard,');
+    expect(copyText).toContain('https://news.google.com/rss/articles/test-0)');
+    // The Meera-only "⚠ check this" warning block must not appear in the published text.
+    expect(copyText).not.toContain('⚠ Check this before publishing');
+    expect(copyText).not.toContain('NEWS SOURCE:');
+  });
+
+  it('does not add a source line when no news was used', async () => {
+    await createPendingDraft();
+    await deliver(telegramTextUpdate('APPROVE'));
+    const copyText = sentTexts().find((t) => t.startsWith('Copy-ready text:'))!;
+    expect(copyText).not.toContain('(Source:');
   });
 
   it('applies a duplicated APPROVE delivery only once', async () => {
