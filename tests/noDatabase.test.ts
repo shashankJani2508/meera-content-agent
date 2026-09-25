@@ -47,7 +47,7 @@ describe('without Supabase', () => {
     expect(draftMessage).toContain('DRAFT READY (not saved)');
     expect(draftMessage).toContain(SAMPLE_DRAFT.slice(0, 60));
     expect(draftMessage).toContain('APPROVE / REJECT are off until the database is connected');
-    expect(draftMessage).not.toContain('APPROVE → mark this draft approved');
+    expect(draftMessage).not.toContain('Reply APPROVE or REJECT.');
     expect(calls.gemini.find((c) => c.task === 'drafting')?.system).toContain('MASTER VOICE PROMPT');
     expect(db.notes).toHaveLength(0);
     expect(db.drafts).toHaveLength(0);

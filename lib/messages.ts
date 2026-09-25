@@ -129,11 +129,8 @@ export function draftReady(input: DraftMessageInput): string {
 
   parts.push(
     saved
-      ? ['Reply:', 'APPROVE → mark this draft approved', 'REJECT → mark this draft rejected', 'Nothing is published automatically.'].join('\n')
-      : [
-          "APPROVE / REJECT are off until the database is connected, so this draft isn't stored anywhere - copy it from here if you want it.",
-          'Nothing is published automatically.',
-        ].join('\n'),
+      ? 'Reply APPROVE or REJECT. Nothing is published automatically.'
+      : "APPROVE / REJECT are off until the database is connected - copy this draft from here if you want it. Nothing is published automatically.",
   );
   return parts.join('\n\n');
 }

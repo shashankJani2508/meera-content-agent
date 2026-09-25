@@ -49,8 +49,7 @@ describe('Test 1 - strong note', () => {
     expect(db.drafts[0].telegram_message_ids?.length).toBeGreaterThan(0);
 
     const draftMessage = sentTexts().find((t) => t.startsWith('DRAFT READY'));
-    expect(draftMessage).toContain('APPROVE → mark this draft approved');
-    expect(draftMessage).toContain('REJECT → mark this draft rejected');
+    expect(draftMessage).toContain('Reply APPROVE or REJECT. Nothing is published automatically.');
     expect(draftMessage).not.toContain('NEWS SOURCE');
   });
 
