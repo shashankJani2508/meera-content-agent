@@ -140,6 +140,32 @@ describe('Test 3 - news relevance', () => {
     expect(draftingCall.user).toContain('CURRENT NEWS ITEM');
   });
 
+  it("broadens the search with a single keyword when the AI's compound query finds nothing - and still only uses a genuinely relevant result", async () => {
+    // replies.keywords -> search_query "niacinamide label claims" (0 results below),
+    // keywords[0] "niacinamide" alone (finds the real article). Both must be tried.
+    const relevantHeadline = 'Dermatologists explain why niacinamide percentage alone is misleading';
+    installFakeServices({
+      gemini: {
+        scoring: [replies.strongScore],
+        keywords: [replies.keywords],
+        relevance: [replies.relevantFirst],
+        drafting: [`${SAMPLE_DRAFT}\n\nNEWS_USED: YES`],
+      },
+      news: {
+        xmlForQuery: (query) =>
+          query.includes('label claims')
+            ? rssFeed([]) // the compound query: nothing
+            : rssFeed([{ title: relevantHeadline, source: 'Health Daily', daysAgo: 2 }]), // the broadened single keyword: a real match
+      },
+    });
+
+    await deliver(telegramTextUpdate(STRONG_NOTE));
+
+    // Both queries were actually sent (each edition counts, so more than one query's worth of requests).
+    expect(calls.news.length).toBeGreaterThan(2);
+    expect(db.drafts[0]).toMatchObject({ news_used: true, news_headline: relevantHeadline });
+  });
+
   it('ignores an irrelevant article - no news in the prompt, no source block', async () => {
     installFakeServices({
       gemini: { scoring: [replies.strongScore], keywords: [replies.keywords], relevance: [replies.notRelevant], drafting: [SAMPLE_DRAFT] },

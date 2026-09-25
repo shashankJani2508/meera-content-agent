@@ -17,7 +17,8 @@ export type GeminiReply = string | { status: number };
 export interface FakeConfig {
   /** Answers per task, used in order; the last one repeats. */
   gemini: Partial<Record<GeminiTask, GeminiReply[]>>;
-  news?: { status?: number; xml?: string };
+  /** `xmlForQuery` overrides `xml` when set, so a test can answer differently per search term (e.g. the compound query vs. a single broadening keyword). */
+  news?: { status?: number; xml?: string; xmlForQuery?: (query: string) => string };
   /** Make Telegram sendMessage fail with this HTTP status. */
   telegramSendFailure?: number;
 }
@@ -71,7 +72,9 @@ export function installFakeServices(config: FakeConfig) {
       calls.news.push(url);
       const news = config.news ?? { xml: rssFeed([]) };
       if (news.status && news.status !== 200) return new Response('unavailable', { status: news.status });
-      return new Response(news.xml ?? rssFeed([]), { status: 200, headers: { 'Content-Type': 'application/rss+xml' } });
+      const query = new URL(url).searchParams.get('q') ?? '';
+      const xml = news.xmlForQuery ? news.xmlForQuery(query) : (news.xml ?? rssFeed([]));
+      return new Response(xml, { status: 200, headers: { 'Content-Type': 'application/rss+xml' } });
     }
 
     if (url.includes('api.telegram.org')) {

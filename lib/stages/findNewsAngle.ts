@@ -6,7 +6,7 @@
  * news angle - the post is never forced to be "timely".
  */
 import { describeError, log } from '../logger';
-import { searchGoogleNews } from '../news';
+import { MAX_CANDIDATES, searchGoogleNews } from '../news';
 import type { NewsArticle } from '../types';
 import { checkNewsRelevance } from './checkNewsRelevance';
 import { extractKeywords } from './extractKeywords';
@@ -17,6 +17,44 @@ export interface NewsAngle {
   article: NewsArticle | null;
   /** Why the article was used - or why no article was used. */
   reason: string;
+}
+
+/**
+ * Runs every query in parallel and merges the results (de-duplicated by
+ * headline, newest first, capped). Any query that fails is silently dropped
+ * - only if all of them fail does this throw.
+ */
+async function searchMultiple(queries: string[]): Promise<NewsArticle[]> {
+  const results = await Promise.allSettled(queries.map((query) => searchGoogleNews(query)));
+  const succeeded = results.filter((r): r is PromiseFulfilledResult<NewsArticle[]> => r.status === 'fulfilled');
+  if (succeeded.length === 0) throw (results[0] as PromiseRejectedResult).reason;
+
+  const seen = new Set<string>();
+  return succeeded
+    .flatMap((r) => r.value)
+    .filter((article) => {
+      const key = article.headline.toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, MAX_CANDIDATES);
+}
+
+/**
+ * The AI's chosen search phrase is often 3-4 words and genuinely specific -
+ * useful for precision, but Google News frequently has zero results for it.
+ * A single short keyword casts a much wider net and reliably surfaces
+ * candidates the compound phrase misses entirely. Both are searched, always
+ * (not only when the first search comes back empty), so the relevance step
+ * gets the richer pool to judge from on every note - it still has to find
+ * something genuinely on-topic; this only gives it more to look through.
+ */
+function buildQueries(searchQuery: string, keywords: string[]): string[] {
+  const broadQuery = keywords[0];
+  if (!broadQuery || broadQuery.toLowerCase() === searchQuery.toLowerCase()) return [searchQuery];
+  return [searchQuery, broadQuery];
 }
 
 export async function findNewsAngle(rawNote: string): Promise<NewsAngle> {
@@ -34,17 +72,12 @@ export async function findNewsAngle(rawNote: string): Promise<NewsAngle> {
 
   let candidates: NewsArticle[];
   try {
-    candidates = await searchGoogleNews(searchQuery);
-    // A very specific query can return nothing; try once more with the two main concepts.
-    const broaderQuery = keywords.slice(0, 2).join(' ');
-    if (candidates.length === 0 && keywords.length >= 2 && broaderQuery.toLowerCase() !== searchQuery.toLowerCase()) {
-      log.info('NEWS', 'No results - retrying with a broader query', { broaderQuery });
-      candidates = await searchGoogleNews(broaderQuery);
-    }
+    const queries = buildQueries(searchQuery, keywords);
+    candidates = await searchMultiple(queries);
     log.info('NEWS', 'News search finished', {
-      searchQuery,
+      queries,
       results: candidates.length,
-      topHeadline: candidates[0]?.headline,
+      headlines: candidates.map((a) => a.headline),
     });
   } catch (error) {
     log.warn('NEWS', 'News search failed - drafting without news', { error: describeError(error) });
