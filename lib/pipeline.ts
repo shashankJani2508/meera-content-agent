@@ -16,7 +16,7 @@ import * as database from './database';
 import { AiOutputError, AiRequestError, VoiceProfileMissingError } from './errors';
 import { describeError, log } from './logger';
 import * as messages from './messages';
-import { findNewsAngle } from './stages/findNewsAngle';
+import { findNewsAngle, type NewsAngle } from './stages/findNewsAngle';
 import { scoreNote } from './stages/scoreNote';
 import { writeDraft, type DraftResult } from './stages/writeDraft';
 import { sendMessage, sendMessageSafely, startTypingIndicator } from './telegram';
@@ -79,7 +79,7 @@ export async function processNote(note: NoteRow): Promise<void> {
 
     if (!passed) {
       // The note stays in the database as "rejected". A failed send doesn't change that.
-      await sendMessageSafely(chatId, messages.noteRejected(score.score, score.reason, store.saved), {
+      await sendMessageSafely(chatId, messages.noteRejected(score.score, score.reason, score.breakdown, store.saved), {
         replyToMessageId: note.telegram_message_id,
       });
       log.info('PIPELINE', 'Finished - note rejected, no draft', { noteId });
@@ -117,7 +117,7 @@ export async function processNote(note: NoteRow): Promise<void> {
       news_url: articleUsed?.url ?? null,
       news_relevance_reason: newsAngle.reason,
     });
-    await deliverDraft(store, note, savedDraft, score, draft, articleUsed);
+    await deliverDraft(store, note, savedDraft, score, draft, articleUsed, newsAngle);
     // Meera already has the draft at this point, so a failure here is logged, not reported to her.
     await store.updateNote(noteId, { status: 'drafted' }).catch((error) =>
       log.error('DATABASE', 'Draft delivered but note status not updated to drafted', error, { noteId }),
@@ -142,14 +142,18 @@ async function deliverDraft(
   score: ScoreResult,
   draft: DraftResult,
   article: NewsArticle | null,
+  newsAngle: NewsAngle,
 ) {
   const text = messages.draftReady({
     draftId: savedDraft.id,
     draftText: draft.text,
     score: score.score,
+    scoreBreakdown: score.breakdown,
     wordCount: draft.wordCount,
     modelLabel: draft.modelUsed,
     article,
+    newsSearchQuery: newsAngle.searchQuery,
+    newsSearchReason: newsAngle.reason,
     placeholders: draft.placeholders,
     styleWarnings: draft.styleWarnings,
     saved: store.saved,

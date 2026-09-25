@@ -4,7 +4,8 @@
  * either returns a clean value or a short description of what was wrong
  * (which is fed back to the model on the one retry).
  */
-import type { KeywordResult, RelevanceResult, ScoreResult } from './types';
+import type { KeywordResult, RelevanceResult, ScoreBreakdownItem, ScoreResult } from './types';
+import { SCORE_CRITERIA } from '../prompts/scoring';
 
 export type Validated<T> = { ok: true; value: T } | { ok: false; error: string };
 
@@ -48,6 +49,29 @@ export function parseModelJson(text: string): Validated<unknown> {
   }
 }
 
+/**
+ * The breakdown explains the score but never gates it: a missing or malformed
+ * breakdown just means the Telegram message shows the score and reason alone,
+ * not a wasted retry over a decorative field.
+ */
+function parseScoreBreakdown(value: unknown): ScoreBreakdownItem[] {
+  if (!Array.isArray(value)) return [];
+  const byCriterion = new Map<string, string>();
+  for (const entry of value) {
+    if (!isPlainObject(entry)) continue;
+    const criterion = typeof entry.criterion === 'string' ? entry.criterion.trim().toLowerCase() : null;
+    const verdict = cleanString(entry.verdict, 80);
+    if (criterion && verdict && SCORE_CRITERIA.includes(criterion as (typeof SCORE_CRITERIA)[number])) {
+      byCriterion.set(criterion, verdict);
+    }
+  }
+  // Keep the fixed order (idea, specificity, fit) regardless of what order the model returned them in.
+  return SCORE_CRITERIA.filter((criterion) => byCriterion.has(criterion)).map((criterion) => ({
+    criterion,
+    verdict: byCriterion.get(criterion)!,
+  }));
+}
+
 export function validateScoreResult(value: unknown): Validated<ScoreResult> {
   if (!isPlainObject(value)) return invalid('expected a JSON object');
   const { score } = value;
@@ -56,7 +80,7 @@ export function validateScoreResult(value: unknown): Validated<ScoreResult> {
   }
   const reason = cleanString(value.reason, 300);
   if (!reason) return invalid('"reason" must be a non-empty string');
-  return valid({ score, reason });
+  return valid({ score, reason, breakdown: parseScoreBreakdown(value.breakdown) });
 }
 
 export function validateKeywordResult(value: unknown): Validated<KeywordResult> {

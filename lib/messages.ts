@@ -3,7 +3,7 @@
  * to review and change. Messages never include error details, stack traces
  * or anything from server logs.
  */
-import type { DraftRow, NewsArticle } from './types';
+import type { DraftRow, NewsArticle, ScoreBreakdownItem } from './types';
 
 const DIVIDER = '─────────────────────────────────';
 
@@ -48,6 +48,29 @@ function draftLabel(draft: Pick<DraftRow, 'id' | 'draft_text'>): string {
   return `Draft #${draft.id} ("${opening}…")`;
 }
 
+const CRITERION_LABELS: Record<string, string> = { idea: 'Idea', specificity: 'Specificity', fit: 'Fit' };
+
+/** The per-criterion score breakdown, as bullet lines. Empty string if there's nothing to show. */
+function formatScoreBreakdown(breakdown: ScoreBreakdownItem[]): string {
+  if (breakdown.length === 0) return '';
+  return breakdown.map((item) => `- ${CRITERION_LABELS[item.criterion] ?? item.criterion}: ${item.verdict}`).join('\n');
+}
+
+/** Internal-sounding reasons that mean "something failed", not a real relevance verdict - not worth showing to Meera. */
+const NON_RELEVANCE_REASONS = new Set(['Keyword extraction failed', 'News search failed', 'Relevance check failed']);
+
+/**
+ * When no news item was used, a short line saying a search DID happen and why
+ * nothing qualified - so "no source" reads as "checked, nothing fit" rather
+ * than looking like the step was skipped. Never shown when an article was used
+ * (the verification block already covers that) or after an internal failure.
+ */
+function newsSearchNote(searchQuery: string | null, reason: string | null): string | null {
+  if (!searchQuery || !reason || NON_RELEVANCE_REASONS.has(reason)) return null;
+  const reasonSentence = /[.!?]$/.test(reason) ? reason : `${reason}.`;
+  return `News: searched "${searchQuery}" - ${reasonSentence} Drafted from your note alone.`;
+}
+
 /** Mandatory whenever a draft uses a news item. Meera must see the source before approving. */
 export function newsVerificationBlock(article: Pick<NewsArticle, 'headline' | 'source' | 'publishedAt' | 'url'>): string {
   return [
@@ -64,9 +87,13 @@ export interface DraftMessageInput {
   draftId: number;
   draftText: string;
   score: number;
+  scoreBreakdown: ScoreBreakdownItem[];
   wordCount: number;
   modelLabel: string;
   article: NewsArticle | null;
+  /** The query that was searched and why nothing was used - only shown when article is null. */
+  newsSearchQuery: string | null;
+  newsSearchReason: string | null;
   placeholders: string[];
   styleWarnings: string[];
   /** False while Supabase isn't connected: the draft isn't stored, so APPROVE/REJECT can't work. */
@@ -78,9 +105,17 @@ const NOT_SAVED_NOTE = "(The database isn't connected yet, so this wasn't saved.
 export function draftReady(input: DraftMessageInput): string {
   const saved = input.saved ?? true;
   const header = saved ? `DRAFT READY · #${input.draftId}` : 'DRAFT READY (not saved)';
-  const parts = [header, `Score ${input.score}/10 · ${input.wordCount} words · drafted by ${input.modelLabel}`, input.draftText];
+  const scoreLine = [`Score ${input.score}/10 · ${input.wordCount} words · drafted by ${input.modelLabel}`, formatScoreBreakdown(input.scoreBreakdown)]
+    .filter(Boolean)
+    .join('\n');
+  const parts = [header, scoreLine, input.draftText];
 
-  if (input.article) parts.push(newsVerificationBlock(input.article));
+  if (input.article) {
+    parts.push(newsVerificationBlock(input.article));
+  } else {
+    const note = newsSearchNote(input.newsSearchQuery, input.newsSearchReason);
+    if (note) parts.push(note);
+  }
 
   if (input.placeholders.length > 0) {
     const count = input.placeholders.length;
@@ -101,10 +136,11 @@ export function draftReady(input: DraftMessageInput): string {
   return parts.join('\n\n');
 }
 
-export function noteRejected(score: number, reason: string, saved = true): string {
+export function noteRejected(score: number, reason: string, breakdown: ScoreBreakdownItem[] = [], saved = true): string {
+  const scoreBlock = [`Score: ${score}/10`, `Reason: ${reason}`, formatScoreBreakdown(breakdown)].filter(Boolean).join('\n');
   return [
     "This one isn't strong enough to develop into a post yet.",
-    `Score: ${score}/10\nReason: ${reason}`,
+    scoreBlock,
     saved ? "I've saved the note, but I haven't drafted it." : `I haven't drafted it. ${NOT_SAVED_NOTE}`,
   ].join('\n\n');
 }

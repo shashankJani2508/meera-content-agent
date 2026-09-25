@@ -13,6 +13,9 @@ export async function scoreNote(rawNote: string): Promise<ScoreResult> {
     jsonShape: SCORING_JSON_SHAPE,
     validate: validateScoreResult,
   });
-  log.info('SCORING', 'Note scored', { score: result.score, reason: result.reason, note: preview(rawNote) });
+  log.info('SCORING', 'Note scored', { score: result.score, reason: result.reason, breakdown: result.breakdown.length, note: preview(rawNote) });
+  if (result.breakdown.length === 0) {
+    log.warn('SCORING', 'Model returned no usable score breakdown - Telegram message will show the score and reason only');
+  }
   return result;
 }

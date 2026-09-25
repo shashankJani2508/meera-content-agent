@@ -33,9 +33,10 @@ console.log(note);
 const score = await scoreNote(note);
 section('SCORE');
 console.log(`${score.score}/10 - ${score.reason}`);
+for (const item of score.breakdown) console.log(`  ${item.criterion}: ${item.verdict}`);
 if (score.score < NOTE_SCORE_THRESHOLD) {
   section('RESULT');
-  console.log(messages.noteRejected(score.score, score.reason));
+  console.log(messages.noteRejected(score.score, score.reason, score.breakdown));
   process.exit(0);
 }
 
@@ -66,9 +67,12 @@ console.log(
     draftId: 0,
     draftText: draft.text,
     score: score.score,
+    scoreBreakdown: score.breakdown,
     wordCount: draft.wordCount,
     modelLabel: draft.modelUsed,
     article: draft.newsUsed ? news.article : null,
+    newsSearchQuery: news.searchQuery,
+    newsSearchReason: news.reason,
     placeholders: draft.placeholders,
     styleWarnings: draft.styleWarnings,
   }),

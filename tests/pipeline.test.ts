@@ -54,6 +54,22 @@ describe('Test 1 - strong note', () => {
     expect(draftMessage).not.toContain('NEWS SOURCE');
   });
 
+  it('shows the score breakdown alongside the number, and degrades gracefully when the model omits it', async () => {
+    installFakeServices({
+      gemini: {
+        scoring: [replies.strongScoreWithBreakdown],
+        keywords: [replies.keywords],
+        relevance: [replies.notRelevant],
+        drafting: [SAMPLE_DRAFT],
+      },
+    });
+    await deliver(telegramTextUpdate(STRONG_NOTE));
+    const message = sentTexts().find((t) => t.startsWith('DRAFT READY'))!;
+    expect(message).toContain('- Idea: Sharp label-vs-performance gap');
+    expect(message).toContain('- Specificity: Names the exact ingredient and number');
+    expect(message).toContain('- Fit: Right in her formulation expertise');
+  });
+
   it('sends the stored Voice Skill to the drafting model', async () => {
     installFakeServices({
       gemini: { scoring: [replies.strongScore], keywords: [replies.keywords], relevance: [replies.notRelevant], drafting: [SAMPLE_DRAFT] },
@@ -80,6 +96,15 @@ describe('Test 2 - weak note', () => {
     expect(message).toContain("This one isn't strong enough to develop into a post yet.");
     expect(message).toContain('Reason: A to-do reminder with no idea to develop.');
     expect(message).toContain("I've saved the note, but I haven't drafted it.");
+  });
+
+  it('shows the score breakdown on a rejected note too', async () => {
+    installFakeServices({ gemini: { scoring: [replies.weakScoreWithBreakdown] } });
+    await deliver(telegramTextUpdate(WEAK_NOTE));
+    const [message] = sentTexts();
+    expect(message).toContain('- Idea: No idea, just a logistics task');
+    expect(message).toContain('- Specificity: Nothing to anchor a post to');
+    expect(message).toContain('- Fit: Not a content topic at all');
   });
 });
 
@@ -125,7 +150,21 @@ describe('Test 3 - news relevance', () => {
     expect(db.drafts[0].news_headline).toBeNull();
     expect(db.drafts[0].news_relevance_reason).toContain('not about');
     expect(calls.gemini.find((c) => c.task === 'drafting')!.user).toContain('No news item is attached');
-    expect(sentTexts().join('\n')).not.toContain('NEWS SOURCE');
+    const message = sentTexts().find((t) => t.startsWith('DRAFT READY'))!;
+    expect(message).not.toContain('NEWS SOURCE');
+    // A search DID run - Meera should see that it was checked and why nothing was used, not silence.
+    expect(message).toContain('News: searched "niacinamide label claims" - Same industry, but not about the note\'s point.');
+    expect(message).toContain('Drafted from your note alone.');
+  });
+
+  it('says nothing about news when it was never searched (e.g. keyword extraction failed)', async () => {
+    installFakeServices({
+      gemini: { scoring: [replies.strongScore], keywords: ['not json', 'still not json'], drafting: [SAMPLE_DRAFT] },
+    });
+    await deliver(telegramTextUpdate(STRONG_NOTE));
+    const message = sentTexts().find((t) => t.startsWith('DRAFT READY'))!;
+    expect(message).not.toContain('News:');
+    expect(message).not.toContain('NEWS SOURCE');
   });
 
   it('drops the source block if the drafter says it did not use the news', async () => {

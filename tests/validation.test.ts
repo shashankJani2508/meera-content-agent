@@ -21,10 +21,53 @@ describe('parseModelJson', () => {
 });
 
 describe('validateScoreResult', () => {
-  it('accepts a whole number 0-10 with a reason', () => {
-    expect(validateScoreResult({ score: 0, reason: 'A reminder.' })).toEqual({ ok: true, value: { score: 0, reason: 'A reminder.' } });
-    expect(validateScoreResult({ score: 10, reason: ' Sharp.  ' })).toEqual({ ok: true, value: { score: 10, reason: 'Sharp.' } });
+  it('accepts a whole number 0-10 with a reason, defaulting to an empty breakdown', () => {
+    expect(validateScoreResult({ score: 0, reason: 'A reminder.' })).toEqual({ ok: true, value: { score: 0, reason: 'A reminder.', breakdown: [] } });
+    expect(validateScoreResult({ score: 10, reason: ' Sharp.  ' })).toEqual({
+      ok: true,
+      value: { score: 10, reason: 'Sharp.', breakdown: [] },
+    });
   });
+
+  it('parses a valid breakdown, in the fixed idea/specificity/fit order regardless of input order', () => {
+    const result = validateScoreResult({
+      score: 8,
+      reason: 'Strong.',
+      breakdown: [
+        { criterion: 'fit', verdict: 'Right in her territory' },
+        { criterion: 'idea', verdict: 'Clear, specific gap' },
+        { criterion: 'specificity', verdict: 'Names an exact number' },
+      ],
+    });
+    expect(result).toEqual({
+      ok: true,
+      value: {
+        score: 8,
+        reason: 'Strong.',
+        breakdown: [
+          { criterion: 'idea', verdict: 'Clear, specific gap' },
+          { criterion: 'specificity', verdict: 'Names an exact number' },
+          { criterion: 'fit', verdict: 'Right in her territory' },
+        ],
+      },
+    });
+  });
+
+  it('never fails validation over a malformed breakdown - the score and reason still pass', () => {
+    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: 'not an array' })).toEqual({
+      ok: true,
+      value: { score: 7, reason: 'x', breakdown: [] },
+    });
+    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: [{ criterion: 'made_up', verdict: 'irrelevant' }] })).toEqual({
+      ok: true,
+      value: { score: 7, reason: 'x', breakdown: [] },
+    });
+    expect(validateScoreResult({ score: 7, reason: 'x', breakdown: [{ criterion: 'idea' }] })).toEqual({
+      ok: true,
+      value: { score: 7, reason: 'x', breakdown: [] },
+    });
+  });
+
   it.each([
     [{ score: 11, reason: 'x' }],
     [{ score: -1, reason: 'x' }],

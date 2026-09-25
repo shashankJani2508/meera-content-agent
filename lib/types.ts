@@ -83,9 +83,17 @@ export interface NewsArticle {
   summary: string;
 }
 
+/** One line of the score breakdown, e.g. {criterion: "Idea", verdict: "Clear, specific gap named"}. */
+export interface ScoreBreakdownItem {
+  criterion: string;
+  verdict: string;
+}
+
 export interface ScoreResult {
   score: number;
   reason: string;
+  /** Why it scored this way, one line per judging criterion. Empty if the model didn't return one usable. */
+  breakdown: ScoreBreakdownItem[];
 }
 
 export interface KeywordResult {
